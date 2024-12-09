@@ -1,0 +1,25 @@
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { DataService } from './data.service';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'businesses',
+  imports: [RouterOutlet, CommonModule],
+  providers: [DataService],
+  templateUrl: './businesses.component.html',
+  styleUrl: './businesses.component.css'
+})
+
+export class BusinessesComponent {
+  business_list: any = [];
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    
+    this.business_list = this.dataService.getBusinesses();
+    console.log('Raw data:', this.business_list);
+    console.log('Places array:', this.business_list?.places);
+  }
+}

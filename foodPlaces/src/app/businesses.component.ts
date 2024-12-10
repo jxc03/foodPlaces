@@ -13,13 +13,33 @@ import { CommonModule } from '@angular/common';
 
 export class BusinessesComponent {
   business_list: any = [];
+  page: number = 1;
 
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit() {
-    
-    this.business_list = this.dataService.getBusinesses();
+    if (sessionStorage['page']) {
+      this.page = Number(sessionStorage['page']); 
+    }
+
+    this.business_list = this.dataService.getBusinesses(this.page);
     console.log('Raw data:', this.business_list);
     console.log('Places array:', this.business_list?.places);
+  }
+
+  previousPage() { 
+    if (this.page > 1){
+      this.page = this.page - 1 
+      sessionStorage['page'] = this.page;
+      this.business_list = this.dataService.getBusinesses(this.page);
+    }
+  } 
+
+  nextPage() { 
+    if (this.page < this.dataService.getLastPageNumber()){
+      this.page = this.page + 1 
+      sessionStorage['page'] = this.page;
+      this.business_list = this.dataService.getBusinesses(this.page);
+    }
   }
 }

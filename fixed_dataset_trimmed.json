@@ -1,0 +1,373 @@
+[
+    {
+      "city_id": "c_arm",
+      "city_name": "Armagh",
+      "places": [
+        {
+          "place_id": "p_arm_001",
+          "google_place_id": "ChIJMQX4SmaTYEgRuu2Eay520ZY",
+          "info": {
+            "name": "Embers",
+            "type": [
+              "breakfast_restaurant",
+              "coffee_shop",
+              "cafe"
+            ],
+            "status": "operational"
+          },
+          "location": {
+            "address": {
+              "street": "7 Market St",
+              "city": "armagh",
+              "postcode": "bt61 7bw",
+              "full_address": "7 Market St, Armagh BT61 7BW, UK"
+            },
+            "coordinates": {
+              "latitude": 54.3477829,
+              "longitude": -6.6534692
+            }
+          },
+          "business_hours": {
+            "monday": {"open": "09:00", "close": "17:00"},
+            "tuesday": {"open": "09:00", "close": "17:00"},
+            "wednesday": {"open": "09:00", "close": "17:00"},
+            "thursday": {"open": "09:00", "close": "20:00"},
+            "friday": {"open": "09:00", "close": "20:00"},
+            "saturday": {"open": "09:00", "close": "21:00"},
+            "sunday": {"open": "10:00", "close": "19:00"}
+          },
+          "service_options": {
+            "dining": {
+              "dine_in": true,
+              "takeaway": true,
+              "reservations": true,
+              "outdoor_seating": true,
+              "group_bookings": true
+            },
+            "meals": {
+              "breakfast": true,
+              "lunch": true,
+              "dinner": true,
+              "brunch": true
+            }
+          },
+          "menu_options": {
+            "food": {
+              "vegetarian": true,
+              "kids_menu": true
+            },
+            "drinks": {
+              "coffee": true,
+              "beer": true,
+              "wine": true,
+              "cocktails": true
+            }
+          },
+          "amenities": {
+            "facilities": {
+              "restrooms": true,
+              "wifi": false,
+              "parking": true
+            },
+            "accessibility": {
+              "wheelchair_access": true,
+              "accessible_restroom": true,
+              "accessible_seating": true
+            }
+          },
+          "ratings": {
+            "average_rating": 4,
+            "review_count": 755,
+            "recent_reviews": [
+              {
+                "review_id": "rev_000",
+                "rating": 5,
+                "author_name": "B J M",
+                "content": "We had such a nice meal there the first day of our holiday (on a 2 day break) that we had to come back a second time! The food was delicious.\nGood wholesome food. Friendly and welcoming staff.\nA lovely wee restaurant in the centre of Armagh. Can only highly recommend this restaurant.\nHopefully we will return again.",
+                "date_posted": "2024-09-04T10:26:47.917920Z",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "city_id": "c_ban",
+      "city_name": "Bangor",
+      "places": [
+        {
+          "place_id": "p_ban_001",
+          "google_place_id": "ChIJGXZw_4efYUgR4aXyUlH1BBE",
+          "info": {
+            "name": "King Street Kitchen",
+            "type": [
+              "restaurant",
+              "food",
+              "point_of_interest"
+            ],
+            "status": "operational"
+          },
+          "location": {
+            "address": {
+              "street": "5a King St",
+              "city": "bangor",
+              "postcode": "bt20 3ah",
+              "full_address": "5a King St, Bangor BT20 3AH, UK"
+            },
+            "coordinates": {
+              "latitude": 54.661585099999996,
+              "longitude": -5.668621099999999
+            }
+          },
+          "business_hours": {
+            "monday": {"open": "10:00", "close": "15:30"},
+            "tuesday": {"open": "10:00", "close": "15:30"},
+            "wednesday": {"open": "10:00", "close": "15:30"},
+            "thursday": {"open": "10:00", "close": "15:30"},
+            "friday": {"open": "10:00", "close": "15:30"},
+            "saturday": {"open": "09:30", "close": "15:00"},
+            "sunday": {"open": "", "close": ""}
+          },
+          "service_options": {
+            "dining": {
+              "dine_in": true,
+              "takeaway": true,
+              "reservations": false,
+              "outdoor_seating": false,
+              "group_bookings": false
+            },
+            "meals": {
+              "breakfast": true,
+              "lunch": true,
+              "dinner": false,
+              "brunch": true
+            }
+          },
+          "menu_options": {
+            "food": {
+              "vegetarian": false,
+              "kids_menu": true
+            },
+            "drinks": {
+              "coffee": true,
+              "beer": false,
+              "wine": false,
+              "cocktails": false
+            }
+          },
+          "amenities": {
+            "facilities": {
+              "restrooms": true,
+              "wifi": false,
+              "parking": false
+            },
+            "accessibility": {
+              "wheelchair_access": false,
+              "accessible_restroom": false,
+              "accessible_seating": false
+            }
+          },
+          "ratings": {
+            "average_rating": 4.8,
+            "review_count": 53,
+            "recent_reviews": [
+              {
+                "review_id": "rev_000",
+                "rating": 5,
+                "author_name": "Phyllis McIntosh",
+                "content": "My friend Avril and I have have had several lunches in King Street Cafe. Service is great / very friendly. The food is excellent and so reasonably priced / everything is fresh, hot and very delicious. We will certainly be back. 👍",
+                "date_posted": "2024-09-20T10:01:08.065860Z",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "city_id": "c_bel",
+      "city_name": "Belfast",
+      "places": [
+        {
+          "place_id": "p_bel_001",
+          "google_place_id": "ChIJBcopAgYJYUgRofThqF_rCzc",
+          "info": {
+            "name": "Peppercorn Cafe",
+            "type": [
+              "restaurant",
+              "cafe",
+              "point_of_interest"
+            ],
+            "status": "operational"
+          },
+          "location": {
+            "address": {
+              "street": "209 Woodstock Rd",
+              "city": "belfast",
+              "postcode": "bt6 8pq",
+              "full_address": "209 Woodstock Rd, Belfast BT6 8PQ, UK"
+            },
+            "coordinates": {
+              "latitude": 54.592235099999996,
+              "longitude": -5.9042433
+            }
+          },
+          "business_hours": {
+            "monday": {"open": "08:30", "close": "15:30"},
+            "tuesday": {"open": "08:30", "close": "15:30"},
+            "wednesday": {"open": "08:30", "close": "15:30"},
+            "thursday": {"open": "08:30", "close": "15:30"},
+            "friday": {"open": "08:30", "close": "15:30"},
+            "saturday": {"open": "08:30", "close": "15:30"},
+            "sunday": {"open": "09:00", "close": "15:00"}
+          },
+          "service_options": {
+            "dining": {
+              "dine_in": true,
+              "takeaway": true,
+              "reservations": false,
+              "outdoor_seating": false,
+              "group_bookings": true
+            },
+            "meals": {
+              "breakfast": true,
+              "lunch": true,
+              "dinner": true,
+              "brunch": true
+            }
+          },
+          "menu_options": {
+            "food": {
+              "vegetarian": false,
+              "kids_menu": true
+            },
+            "drinks": {
+              "coffee": true,
+              "beer": false,
+              "wine": false,
+              "cocktails": false
+            }
+          },
+          "amenities": {
+            "facilities": {
+              "restrooms": true,
+              "wifi": false,
+              "parking": false
+            },
+            "accessibility": {
+              "wheelchair_access": true,
+              "accessible_restroom": false,
+              "accessible_seating": true
+            }
+          },
+          "ratings": {
+            "average_rating": 4.6,
+            "review_count": 385,
+            "recent_reviews": [
+              {
+                "review_id": "rev_000",
+                "rating": 5,
+                "author_name": "Martin Neeson",
+                "content": "I used the cafe for the first time on Friday. Food, service, staff and the prices are excellent. I even left my mobile phone and bank cards behind and everything was returned to me the next day intact. They even posted a message on Facebook for me. That's service of the highest quality. Definitely highly recommend",
+                "date_posted": "2024-07-29T11:09:11.505324Z",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "city_id": "c_der",
+      "city_name": "Derry/Londonderry",
+      "places": [
+        {
+          "place_id": "p_der_001",
+          "google_place_id": "ChIJJ6Qh84LhX0gRrhcbu5EXfO0",
+          "info": {
+            "name": "The Scullery Cafe",
+            "type": [
+              "cafe",
+              "breakfast_restaurant",
+              "restaurant"
+            ],
+            "status": "operational"
+          },
+          "location": {
+            "address": {
+              "street": "48 Waterloo St",
+              "city": "londonderry",
+              "postcode": "bt48 6hf",
+              "full_address": "48 Waterloo St, Londonderry BT48 6HF, UK"
+            },
+            "coordinates": {
+              "latitude": 54.9974786,
+              "longitude": -7.3215445
+            }
+          },
+          "business_hours": {
+            "monday": {"open": "08:00", "close": "15:30"},
+            "tuesday": {"open": "08:00", "close": "15:30"},
+            "wednesday": {"open": "08:00", "close": "15:30"},
+            "thursday": {"open": "08:00", "close": "15:30"},
+            "friday": {"open": "08:00", "close": "15:30"},
+            "saturday": {"open": "08:00", "close": "15:30"},
+            "sunday": {"open": "08:00", "close": "15:30"}
+          },
+          "service_options": {
+            "dining": {
+              "dine_in": true,
+              "takeaway": true,
+              "reservations": false,
+              "outdoor_seating": true,
+              "group_bookings": true
+            },
+            "meals": {
+              "breakfast": true,
+              "lunch": true,
+              "dinner": false,
+              "brunch": true
+            }
+          },
+          "menu_options": {
+            "food": {
+              "vegetarian": true,
+              "kids_menu": true
+            },
+            "drinks": {
+              "coffee": true,
+              "beer": false,
+              "wine": false,
+              "cocktails": false
+            }
+          },
+          "amenities": {
+            "facilities": {
+              "restrooms": true,
+              "wifi": false,
+              "parking": false
+            },
+            "accessibility": {
+              "wheelchair_access": true,
+              "accessible_restroom": true,
+              "accessible_seating": true
+            }
+          },
+          "ratings": {
+            "average_rating": 4.6,
+            "review_count": 488,
+            "recent_reviews": [
+              {
+                "review_id": "rev_000",
+                "rating": 5,
+                "author_name": "Eoin Cahill",
+                "content": "Lovely place for lunch. Steak sandwich was amazing, and the wife said the pancakes were great too. Mango smoothie also top notch",
+                "date_posted": "2024-06-07T15:16:47.272628Z",
+                "language": "en"
+              }
+            ]
+          }
+        }
+      ]
+    },

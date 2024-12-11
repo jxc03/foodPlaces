@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { DataService } from './data.service';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
+/*import { WebService } from '../../web.service';*/
 
 @Component({
-  selector: 'businesses',
-  imports: [RouterOutlet, CommonModule],
-  providers: [DataService],
-  templateUrl: './businesses.component.html',
-  styleUrl: './businesses.component.css'
+  selector: 'armaghBusinesses',
+  imports: [RouterOutlet, CommonModule, RouterModule],
+  providers: [DataService, /*WebService*/],
+  templateUrl: './armaghBusinesses.component.html',
+  styleUrls: ['./armaghBusinesses.component.css']
 })
 
-export class BusinessesComponent {
+export class ArmaghBusinessesComponent {
   business_list: any = [];
   page: number = 1;
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService, /*private webService: WebService*/) { }
 
   ngOnInit() {
     if (sessionStorage['page']) {

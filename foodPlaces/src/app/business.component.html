@@ -1,13 +1,9 @@
-<h1>
-    Armagh food places
-</h1>
-
 <div class="container">
     <div class="row">
-        <div class="col-sm-14">
+        <div class="col-sm-12">
             @for (business of business_list; track business._id) {
                 @for (place of business.places; track place._id) {
-                    <div class="card text-white bg-primary mb-4">
+                    <div class="card text-white bg-primary mb-3">
                         <div class="card-header">
                             {{ place.info?.name }}
                         </div>
@@ -20,22 +16,6 @@
                     </div>
                 }
             }
-        </div> <!-- col -->
-    </div> <!-- row -->
-    <div class="row"> 
-        <div class="col-sm-4"> 
-           <button class="btn btn-primary" (click)="previousPage()">
-                Previous
-            </button> 
-        </div> 
-        <div class="col-sm-4 text-center">
-            Page {{ this.page }} of {{ dataService.getLastPageNumber() }}
         </div>
-        <div class="col-sm-4 text-end"> 
-           <button class="btn btn-primary" (click)="nextPage()">
-                Next
-            </button> 
-        </div> 
-     </div> 
-</div> <!-- container -->
-
+    </div>
+</div>

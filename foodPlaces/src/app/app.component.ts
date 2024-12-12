@@ -11,7 +11,9 @@ import { LisburnBusinessesComponent } from './cities/lisburn/lisburnBusinesses.c
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavComponent, ArmaghBusinessesComponent,BangorBusinessesComponent, BelfastBusinessesComponent, LisburnBusinessesComponent],
+  imports: [RouterOutlet, NavComponent, ArmaghBusinessesComponent, BangorBusinessesComponent, 
+            BelfastBusinessesComponent, LisburnBusinessesComponent,
+            ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

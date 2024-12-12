@@ -1,6 +1,89 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
+            @if (business_list.length) {
+                @for (business of business_list; track business?._id?.$oid || $index) {
+                    @if (business?.places?.length) {
+                        @for (place of business.places; track place?._id?.$oid || $index) {
+                            <!-- Business Card -->
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-header">{{ place?.info?.name || '' }}</div>
+                                <div class="card-body">
+                                    This business is based in {{ place?.location?.address?.city || '' }}
+                                </div>
+                                <div class="card-footer">
+                                    Rating: {{ place?.ratings?.average_rating || 0 }}
+                                    {{ place?.ratings?.review_count || 0 }} reviews
+                                </div>
+                            </div>
+
+                            <!-- Reviews Section -->
+                            <div class="row mb-4">
+                                <div class="col-sm-12">
+                                    <h3>Reviews ({{ place?.ratings?.review_count || 0 }} total reviews)</h3>
+                                    <p>Average Rating: {{ place?.ratings?.average_rating || 0 }}</p>
+                                    
+                                    @if (place?.ratings?.recent_reviews?.length) {
+                                        @for (review of place.ratings.recent_reviews; track review.review_id || $index) {
+                                            <div class="card bg-light mb-3">
+                                                <div class="card-header">{{ review.author_name }}</div>
+                                                <div class="card-body">{{ review.content }}</div>
+                                                <div class="card-footer">
+                                                    Rating: {{ review.rating }} stars
+                                                    <br>
+                                                    <small class="text-muted">Posted: {{ review.date_posted | date }}</small>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                    <!-- Review Form -->
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h2 class="mb-4">Review {{ place?.info?.name || '' }}</h2>
+                                            <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+                                                <div class="form-group mb-3">
+                                                    <label for="author_name">Your Name</label>
+                                                    <input type="text" id="author_name" class="form-control" formControlName="author_name">
+                                                </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label for="content">Your Review</label>
+                                                    <textarea id="content" class="form-control" formControlName="content" rows="4"></textarea>
+                                                </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label for="rating">Rating</label>
+                                                    <select id="rating" class="form-control" formControlName="rating">
+                                                        <option value="1">1 star</option>
+                                                        <option value="2">2 stars</option>
+                                                        <option value="3">3 stars</option>
+                                                        <option value="4">4 stars</option>
+                                                        <option value="5">5 stars</option>
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            } @else {
+                <div class="alert alert-info">No businesses found.</div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
             @for (business of business_list; track business._id) {
                 @for (place of business.places; track place._id) {
                     <div class="card text-white bg-primary mb-3">
@@ -12,6 +95,61 @@
                         </div>
                         <div class="card-footer">
                             Rating: {{ place.ratings?.average_rating }}
+                            {{ place.ratings?.review_count }} reviews
+                        </div>
+                    </div>
+                 
+                    <div class="row" style="margin-top: 70px">
+                        <div class="col-sm-12">
+                            <h3>Reviews ({{ place.ratings?.review_count }} total reviews)</h3>
+                            <p>Average Rating: {{ place.ratings?.average_rating }}</p>
+                            @for (review of place.ratings?.recent_reviews; track review.review_id) {
+                                <div class="card bg-light mb-3">
+                                    <div class="card-header">
+                                        {{ review.author_name }}
+                                    </div>
+                                    <div class="card-body">
+                                        {{ review.content }}
+                                    </div>
+                                    <div class="card-footer">
+                                        Rating: {{ review.rating }} stars
+                                        <br>
+                                        <small class="text-muted">Posted: {{ review.date_posted | date }}</small>
+                                    </div>
+                                </div>
+                            }
+                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2>Please review {{ place.info?.name }}</h2>
+                                    <form [formGroup]="reviewForm" (ngSubmit) = "onSubmit()">
+                                        <div class="form-group">
+                                            <label for="author_name">Your Name</label>
+                                            <input type="text" name="author_name" id="author_name" class="form-control" formControlName="author_name" >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="content">Your Review</label>
+                                            <textarea name="content" id="content" class="form-control" formControlName="content">
+                                            </textarea>
+                                        </div>
+                    
+                                        <div class="form-group">
+                                            <label for="rating">Rating (5 = best)</label>
+                                            <select name="rating" id="rating" class="form-control" formControlName="rating">    
+                                                <option value="1">1 star</option>
+                                                <option value="2">2 stars</option>
+                                                <option value="3">3 stars</option>
+                                                <option value="4">4 stars</option>
+                                                <option value="5">5 stars</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit" style="margin-top: 20px">
+                                            Submit Review
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -19,3 +157,4 @@
         </div>
     </div>
 </div>
+-->

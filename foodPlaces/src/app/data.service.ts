@@ -88,6 +88,46 @@ export class DataService {
         const totalPlaces = cityData?.places?.length;
         return Math.ceil(totalPlaces / this.pageSize);  
     } 
+
+    postReview(businessId: string, review: any) { 
+        let newReview = { 
+            'author_name' : review.author_name, 
+            'content' : review.content, 
+            'rating' : Number(review.rating),
+            'date_posted' : new Date()
+        }; 
+
+        // Type assertion for jsonData
+        const data = jsonData as any[];
+
+        // Iterate through all cities to find the business
+        for (const city of data) {
+            const place = city.places.find((p: any) => p._id.$oid === businessId);
+            if (place) {
+                // Initialise ratings and recent_reviews if they don't exist
+                if (!place.ratings) {
+                    place.ratings = {};
+                }
+                if (!place.ratings.recent_reviews) {
+                    place.ratings.recent_reviews = [];
+                }
+                
+                // Add the new review
+                place.ratings.recent_reviews.push(newReview);
+
+                // Update review count and average rating
+                place.ratings.review_count = place.ratings.recent_reviews.length;
+                place.ratings.average_rating = this.calculateAverageRating(place.ratings.recent_reviews);
+                break;  // Exit loop once found
+            }
+        }
+    }
+
+    private calculateAverageRating(reviews: any[]): number {
+        if (!reviews.length) return 0;
+        const sum = reviews.reduce((acc, review) => acc + Number(review.rating), 0);
+        return Number((sum / reviews.length).toFixed(1));
+    }
 }
 
 /* 

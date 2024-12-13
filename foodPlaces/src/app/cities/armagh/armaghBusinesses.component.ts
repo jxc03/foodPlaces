@@ -143,7 +143,7 @@ export class ArmaghBusinessesComponent {
       sessionStorage['page'] = this.page;
       const cityData = this.dataService.getBusinesses(this.page);
       if (cityData && cityData.length > 0) {
-        const cityId = cityData[0]._id.$oid;  // Updated to use $oid
+        const cityId = cityData[0]._id.$oid; 
         this.loadPlaces(cityId);
       }
     }
@@ -155,7 +155,7 @@ export class ArmaghBusinessesComponent {
       sessionStorage['page'] = this.page;
       const cityData = this.dataService.getBusinesses(this.page);
       if (cityData && cityData.length > 0) {
-        const cityId = cityData[0]._id.$oid;  // Updated to use $oid
+        const cityId = cityData[0]._id.$oid; 
         this.loadPlaces(cityId);
       }
     }

@@ -4,11 +4,12 @@ import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms'; 
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @Component({ 
     selector: 'business', 
     standalone: true, 
-    imports: [RouterOutlet, RouterModule, CommonModule, ReactiveFormsModule], 
+    imports: [RouterOutlet, RouterModule, CommonModule, ReactiveFormsModule, GoogleMapsModule], 
     providers: [DataService], 
     templateUrl: './business.component.html', 
     styleUrl: './business.component.css' 
@@ -21,18 +22,50 @@ export class BusinessComponent {
     showAllReviews: boolean = false;
     currentPhotoIndex: number = 0;
     photosToDisplay: any[] = [];
+    business_lat: any; 
+    business_lng: any; 
+    map_options: google.maps.MapOptions = {}; 
+    map_locations: any[] = [ ]
+
 
     constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder) {}
 
     ngOnInit() {
         const businessId = this.route.snapshot.paramMap.get('id');
         console.log('Looking for business with ID:', businessId); // Debug log
+        
+        // Initialize Google Maps if we have business data
+        if (this.business_list?.length && this.business_list[0]?.places?.length) {
+            const place = this.business_list[0].places[0];
+            
+            // Set coordinates from business location
+            if (place?.location?.coordinates) {
+                this.business_lat = place.location.coordinates.latitude;
+                this.business_lng = place.location.coordinates.longitude;
+
+                // Initialize map options
+                this.map_options = {
+                    mapId: "DEMO_MAP_ID",
+                    center: { 
+                        lat: this.business_lat,
+                        lng: this.business_lng 
+                    },
+                    zoom: 15
+                };
+
+                // Add marker for business location
+                this.map_locations = [{
+                    lat: this.business_lat,
+                    lng: this.business_lng
+                }];
+            }
+        }
 
         if (businessId) {
             this.business_list = this.dataService.getBusiness(businessId);
             console.log('Found business data:', this.business_list); // Debug log
 
-            // Initialize photos array if available
+            // Start photos array if available
             if (this.business_list?.[0]?.places?.[0]?.media?.photos) {
                 this.photosToDisplay = this.business_list[0].places[0].media.photos;
                 console.log('Photos loaded:', this.photosToDisplay.length);
@@ -43,7 +76,7 @@ export class BusinessComponent {
                 console.log('Reviews:', this.business_list[0].ratings.recent_reviews);
             }
         }
-
+        
         this.reviewForm = this.formBuilder.group({
             author_name: ['', Validators.required],/*Validators.required*/
             content: ['', Validators.required],/*Validators.required*/
@@ -80,37 +113,32 @@ export class BusinessComponent {
     toggleReviews() {
         this.showAllReviews = !this.showAllReviews;
     }
-    /*
-    getImageUrl(photo: any) {
-        if (photo?.url) {
-            // If it's a Google Maps URL, we'll use placeholder
-            // Since we can't directly use Google Maps image URLs
-            if (photo.url.includes('google.com/maps')) {
-                return `/api/placeholder/${this.getImageDimensions(photo).width}/${this.getImageDimensions(photo).height}`;
-            }
-            // For other direct image URLs, use them
-            return photo.url;
-        }
-        // Fallback to placeholder if no URL
-        return `/api/placeholder/800/600`;
-    }
-    */
    
+    /* 
+    Placeholder images since my dataset to get the images is just a URL to the google map
+    Shouldve downloaded them instead of using an URL link
+    Unless there is a possibility to fetch the image using Google Places API through the backend
+    */
     getImageUrl(photo: any, isThumbnail: boolean = false) {
+        // Use a default image service like Picsum or a local asset
         if (isThumbnail) {
-            // Fixed small size for thumbnails
-            return '/api/placeholder/80/80';
+            return `https://picsum.photos/80/80?random=${photo?.photo_id || Math.random()}`;
         }
-
-        // Fixed safe size for main image
-        return '/api/placeholder/400/300';
+        
+        // For main display image, use larger dimensions
+        return `https://picsum.photos/800/600?random=${photo?.photo_id || Math.random()}`;
     }
 
-    getImageDimensions(photo: any, isThumbnail: boolean = false) {
-        if (isThumbnail) {
-            return { width: 80, height: 80 };
+    getImageDimensions(photo: any) {
+        // Use original dimensions from photo data if available
+        if (photo?.dimensions) {
+            return {
+                width: photo.dimensions.width,
+                height: photo.dimensions.height
+            };
         }
-        return { width: 400, height: 300 };
+        // Default dimensions
+        return { width: 800, height: 600 };
     }
 
     nextPhoto() {

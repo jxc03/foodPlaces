@@ -16,10 +16,29 @@
                                     {{ place?.ratings?.review_count || 0 }} reviews
                                 </div>
                             </div>
-                            
+
+                            <!-- Google Maps Section -->
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    Location
+                                </div>
+                                <div class="card-body">
+                                    <google-map 
+                                        height="400px"
+                                        width="100%"
+                                        [options]="map_options">
+                                        @for (location of map_locations; track location) {
+                                            <map-advanced-marker
+                                                [position]="{ lat: location.lat, lng: location.lng }">
+                                            </map-advanced-marker>
+                                        }
+                                    </google-map>
+                                </div>
+                            </div>
+
                             <!-- Photo Carousel Section -->
                             <div class="card mb-4">
-                                <div class="card-body">
+                                <div class="card-body p-0">
                                     @if (place?.media?.photos?.length) {
                                         <div class="position-relative">
                                             <!-- Main Image Display -->
@@ -53,16 +72,22 @@
                                         </div>
 
                                         <!-- Thumbnail Navigation -->
-                                        <div class="d-flex mt-2 gap-2 overflow-auto">
-                                            @for (photo of place.media.photos; track photo.photo_id; let i = $index) {
-                                                <img [src]="getImageUrl(photo, true)" 
-                                                    [alt]="'Thumbnail ' + (i + 1)"
-                                                    class="img-thumbnail cursor-pointer" 
-                                                    [class.border-primary]="i === currentPhotoIndex"
-                                                    [class.border-2]="i === currentPhotoIndex"
-                                                    style="width: 80px; height: 80px; object-fit: cover;"
-                                                    (click)="setPhoto(i)">
-                                            }
+                                        <div class="border-top bg-light">
+                                            <div class="container-fluid px-3 py-2">
+                                                <div class="row flex-nowrap overflow-x-auto g-2" style="scrollbar-width: thin;">
+                                                    @for (photo of place.media.photos; track photo.photo_id; let i = $index) {
+                                                        <div class="col-auto px-1">
+                                                            <img [src]="getImageUrl(photo, true)" 
+                                                                [alt]="'Thumbnail ' + (i + 1)"
+                                                                class="img-thumbnail cursor-pointer" 
+                                                                [class.border-primary]="i === currentPhotoIndex"
+                                                                [class.border-2]="i === currentPhotoIndex"
+                                                                style="width: 80px; height: 80px; object-fit: cover;"
+                                                                (click)="setPhoto(i)">
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                     }
                                 </div>

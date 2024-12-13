@@ -91,38 +91,54 @@ export class DataService {
 
     postReview(businessId: string, review: any) { 
         let newReview = { 
-            'author_name' : review.author_name, 
-            'content' : review.content, 
-            'rating' : Number(review.rating),
-            'date_posted' : new Date()
+            'author_name': review.author_name, 
+            'content': review.content, 
+            'rating': Number(review.rating),
+            'date_posted': new Date()
         }; 
-
+    
         // Type assertion for jsonData
         const data = jsonData as any[];
-
+    
         // Iterate through all cities to find the business
         for (const city of data) {
             const place = city.places.find((p: any) => p._id.$oid === businessId);
             if (place) {
-                // Initialise ratings and recent_reviews if they don't exist
+                // Initialize ratings if it doesn't exist
                 if (!place.ratings) {
-                    place.ratings = {};
+                    place.ratings = {
+                        average_rating: 0,
+                        review_count: 0,
+                        recent_reviews: []
+                    };
                 }
+                
+                // Initialize recent_reviews if it doesn't exist
                 if (!place.ratings.recent_reviews) {
                     place.ratings.recent_reviews = [];
                 }
-                
-                // Add the new review
+    
+                // Add the new review to recent reviews
                 place.ratings.recent_reviews.push(newReview);
-
-                // Update review count and average rating
-                place.ratings.review_count = place.ratings.recent_reviews.length;
-                place.ratings.average_rating = this.calculateAverageRating(place.ratings.recent_reviews);
+    
+                // Update review count and average rating incrementally
+                const oldCount = place.ratings.review_count || 0;
+                const oldAverage = place.ratings.average_rating || 0;
+                
+                // Calculate new total and count
+                const newCount = oldCount + 1;
+                const newTotal = (oldAverage * oldCount) + Number(newReview.rating);
+                const newAverage = Number((newTotal / newCount).toFixed(1));
+    
+                // Update the statistics
+                place.ratings.review_count = newCount;
+                place.ratings.average_rating = newAverage;
+                
                 break;  // Exit loop once found
             }
         }
     }
-
+    
     private calculateAverageRating(reviews: any[]): number {
         if (!reviews.length) return 0;
         const sum = reviews.reduce((acc, review) => acc + Number(review.rating), 0);

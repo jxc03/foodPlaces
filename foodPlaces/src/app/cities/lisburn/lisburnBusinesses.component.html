@@ -3,13 +3,56 @@
 </h1>
 
 <div class="container">
+    <!-- Filtered info -->
+    <div>
+        <p>Number of filtered places: {{filteredPlaces?.length}}</p>
+        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
+    </div>
+    <!-- Filter Controls -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
+                <option value="all">All Types</option>
+                <option value="breakfast_restaurant">Breakfast Restaurant</option>
+                <option value="coffee_shop">Coffee Shop</option>
+                <option value="cafe">Cafe</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">
+                <option value="all">All Meals</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="brunch">Brunch</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">
+                <option value="0">All Ratings</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary me-2" (click)="updateSort('name')">
+                Sort by Name
+            </button>
+            <button class="btn btn-secondary" (click)="updateSort('rating')">
+                Sort by Rating
+            </button>
+        </div>
+    </div>
+
+    <!-- Business Cards -->
     <div class="row">
         <div class="col-sm-14">
-            @for (business of business_list; track business._id) {
-                @for (place of business.places; track place._id) {
+            @if (filteredPlaces && filteredPlaces.length > 0) {
+                @for (place of filteredPlaces; track place._id.$oid) {
                     <div class="card text-white bg-primary mb-4"
-                         style = "cursor: pointer" 
-                         [routerLink] = "['/lisburnBusinesses', place._id.$oid]">
+                         style="cursor: pointer" 
+                         [routerLink]="['/armaghBusinesses', place._id.$oid]">
                         <div class="card-header">
                             {{ place.info?.name }}
                         </div>
@@ -21,23 +64,25 @@
                         </div>
                     </div>
                 }
+            } @else {
+                <div class="alert alert-info">
+                    No places found matching the current filters
+                </div>
             }
-        </div> <!-- col -->
-    </div> <!-- row -->
+        </div>
+    </div>
+
+    <!-- Pagination -->
     <div class="row"> 
         <div class="col-sm-4"> 
-           <button class="btn btn-primary" (click)="previousPage()">
-                Previous
-            </button> 
+            <button class="btn btn-primary" (click)="previousPage()">Previous</button> 
         </div> 
         <div class="col-sm-4 text-center">
-            Page {{ this.page }} of {{ dataService.getLastPageNumber() }}
+            Page {{ page }} of {{ dataService.getLastPageNumber() }}
         </div>
         <div class="col-sm-4 text-end"> 
-           <button class="btn btn-primary" (click)="nextPage()">
-                Next
-            </button> 
+            <button class="btn btn-primary" (click)="nextPage()">Next</button> 
         </div> 
-     </div> 
-</div> <!-- container -->
+    </div> 
+</div>
 

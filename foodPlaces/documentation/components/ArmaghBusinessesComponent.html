@@ -1,0 +1,1467 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>food-places documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">food-places documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ArmaghBusinessesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/cities/armagh/armaghBusinesses.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>armaghBusinesses</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterOutlet</code>
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./armaghBusinesses.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./armaghBusinesses.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#business_list" >business_list</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dataService" >dataService</a>
+                            </li>
+                            <li>
+                                <a href="#filteredPlaces" >filteredPlaces</a>
+                            </li>
+                            <li>
+                                <a href="#minRating" >minRating</a>
+                            </li>
+                            <li>
+                                <a href="#page" >page</a>
+                            </li>
+                            <li>
+                                <a href="#selectedMeal" >selectedMeal</a>
+                            </li>
+                            <li>
+                                <a href="#selectedType" >selectedType</a>
+                            </li>
+                            <li>
+                                <a href="#sortBy" >sortBy</a>
+                            </li>
+                            <li>
+                                <a href="#sortDirection" >sortDirection</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#applyFiltersAndSort" >applyFiltersAndSort</a>
+                            </li>
+                            <li>
+                                <a href="#loadPlaces" >loadPlaces</a>
+                            </li>
+                            <li>
+                                <a href="#nextPage" >nextPage</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#previousPage" >previousPage</a>
+                            </li>
+                            <li>
+                                <a href="#updateFilter" >updateFilter</a>
+                            </li>
+                            <li>
+                                <a href="#updateSort" >updateSort</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>, webService: <a href="../injectables/WebService.html" target="_self">WebService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>webService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFiltersAndSort"></a>
+                    <span class="name">
+                        <span ><b>applyFiltersAndSort</b></span>
+                        <a href="#applyFiltersAndSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyFiltersAndSort()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadPlaces"></a>
+                    <span class="name">
+                        <span ><b>loadPlaces</b></span>
+                        <a href="#loadPlaces"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadPlaces(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextPage"></a>
+                    <span class="name">
+                        <span ><b>nextPage</b></span>
+                        <a href="#nextPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>nextPage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previousPage"></a>
+                    <span class="name">
+                        <span ><b>previousPage</b></span>
+                        <a href="#previousPage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>previousPage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateFilter"></a>
+                    <span class="name">
+                        <span ><b>updateFilter</b></span>
+                        <a href="#updateFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateFilter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSort"></a>
+                    <span class="name">
+                        <span ><b>updateSort</b></span>
+                        <a href="#updateSort"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateSort(sortBy: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sortBy</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="business_list"></a>
+                    <span class="name">
+                        <span ><b>business_list</b></span>
+                        <a href="#business_list"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dataService</b></span>
+                        <a href="#dataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredPlaces"></a>
+                    <span class="name">
+                        <span ><b>filteredPlaces</b></span>
+                        <a href="#filteredPlaces"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minRating"></a>
+                    <span class="name">
+                        <span ><b>minRating</b></span>
+                        <a href="#minRating"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="page"></a>
+                    <span class="name">
+                        <span ><b>page</b></span>
+                        <a href="#page"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedMeal"></a>
+                    <span class="name">
+                        <span ><b>selectedMeal</b></span>
+                        <a href="#selectedMeal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedType"></a>
+                    <span class="name">
+                        <span ><b>selectedType</b></span>
+                        <a href="#selectedType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sortBy"></a>
+                    <span class="name">
+                        <span ><b>sortBy</b></span>
+                        <a href="#sortBy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;name&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sortDirection"></a>
+                    <span class="name">
+                        <span ><b>sortDirection</b></span>
+                        <a href="#sortDirection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;asc&quot; | &quot;desc&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;asc&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/cities/armagh/armaghBusinesses.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { RouterOutlet, RouterModule } from &#x27;@angular/router&#x27;;
+import { DataService } from &#x27;../../data.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { WebService } from &#x27;../../web.service&#x27;;
+
+@Component({
+  selector: &#x27;armaghBusinesses&#x27;,
+  imports: [RouterOutlet, CommonModule, RouterModule, FormsModule],
+  providers: [DataService, WebService],
+  templateUrl: &#x27;./armaghBusinesses.component.html&#x27;,
+  styleUrls: [&#x27;./armaghBusinesses.component.css&#x27;]
+})
+
+export class ArmaghBusinessesComponent {
+  business_list: any &#x3D; [];
+  filteredPlaces: any[] &#x3D; [];
+  /*cityId: string &#x3D; &#x27;c_armagh&#x27;;*/
+  /*cityId: string &#x3D; &#x27;armagh&#x27;;*/
+  page: number &#x3D; 1;
+
+
+  // Filters
+  selectedType: string &#x3D; &#x27;all&#x27;;
+  selectedMeal: string &#x3D; &#x27;all&#x27;;
+  minRating: number &#x3D; 0;
+  sortBy: string &#x3D; &#x27;name&#x27;;
+  sortDirection: &#x27;asc&#x27; | &#x27;desc&#x27; &#x3D; &#x27;asc&#x27;;
+
+  constructor(public dataService: DataService, private webService: WebService) { }
+
+  ngOnInit() {
+    if (sessionStorage[&#x27;page&#x27;]) {
+      this.page &#x3D; Number(sessionStorage[&#x27;page&#x27;]); 
+    }
+    
+    const cityData &#x3D; this.dataService.getBusinesses(this.page);
+    console.log(&#x27;City Data from service:&#x27;, cityData);
+
+    if (cityData &amp;&amp; cityData.length &gt; 0) {
+      // Access the $oid value from the _id field
+      const cityId &#x3D; cityData[0]._id.$oid;
+      console.log(&#x27;Found city ID:&#x27;, cityId);
+      
+      if (cityId) {
+        this.loadPlaces(cityId);
+      } else {
+        console.error(&#x27;City ID is undefined or null&#x27;);
+      }
+    } else {
+      console.error(&#x27;Invalid city data structure:&#x27;, cityData);
+    }
+  }
+
+  loadPlaces(cityId: string) {
+    console.log(&#x27;Loading places for city ID:&#x27;, cityId);
+    
+    this.webService.getPlaces(cityId)
+      .subscribe({
+        next: (response: any) &#x3D;&gt; {
+          console.log(&#x27;API Response:&#x27;, response);
+          // Check if response is an object with a places property
+          if (response &amp;&amp; response.places &amp;&amp; Array.isArray(response.places)) {
+            this.business_list &#x3D; response.places;
+          } else if (Array.isArray(response)) {
+            this.business_list &#x3D; response;
+          } else {
+            console.error(&#x27;Unexpected response format:&#x27;, response);
+            this.business_list &#x3D; [];
+          }
+          this.applyFiltersAndSort();
+        },
+        error: (error) &#x3D;&gt; {
+          console.error(&#x27;Error loading places:&#x27;, error);
+          this.business_list &#x3D; [];
+          this.filteredPlaces &#x3D; [];
+        }
+      });
+  }
+
+  applyFiltersAndSort() {
+    console.log(&#x27;Current business_list:&#x27;, this.business_list);
+    
+    if (!Array.isArray(this.business_list)) {
+      this.filteredPlaces &#x3D; [];
+      return;
+    }
+
+    // Create a copy of the array
+    let places &#x3D; [...this.business_list];
+    
+    // Apply filters
+    this.filteredPlaces &#x3D; places.filter(place &#x3D;&gt; {
+      const typeMatch &#x3D; this.selectedType &#x3D;&#x3D;&#x3D; &#x27;all&#x27; || 
+                     place?.info?.type?.includes(this.selectedType);
+      const ratingMatch &#x3D; (place?.ratings?.average_rating || 0) &gt;&#x3D; this.minRating;
+      const mealMatch &#x3D; this.selectedMeal &#x3D;&#x3D;&#x3D; &#x27;all&#x27; || 
+                     place?.service_options?.meals?.[this.selectedMeal];
+      
+      return typeMatch &amp;&amp; ratingMatch &amp;&amp; mealMatch;
+    });
+
+    // Apply sorting
+    if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;name&#x27;) {
+      this.filteredPlaces.sort((a, b) &#x3D;&gt; {
+        const nameA &#x3D; a?.info?.name || &#x27;&#x27;;
+        const nameB &#x3D; b?.info?.name || &#x27;&#x27;;
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? 
+          nameA.localeCompare(nameB) : 
+          nameB.localeCompare(nameA);
+      });
+    } else if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;rating&#x27;) {
+      this.filteredPlaces.sort((a, b) &#x3D;&gt; {
+        const ratingA &#x3D; a?.ratings?.average_rating || 0;
+        const ratingB &#x3D; b?.ratings?.average_rating || 0;
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? 
+          ratingA - ratingB : 
+          ratingB - ratingA;
+      });
+    }
+
+    console.log(&#x27;Filtered places:&#x27;, this.filteredPlaces);
+  } 
+
+  updateFilter() {
+    this.applyFiltersAndSort();
+  }
+
+  updateSort(sortBy: string) {
+    if (this.sortBy &#x3D;&#x3D;&#x3D; sortBy) {
+      this.sortDirection &#x3D; this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+    } else {
+      this.sortBy &#x3D; sortBy;
+      this.sortDirection &#x3D; &#x27;asc&#x27;;
+    }
+    this.applyFiltersAndSort();
+  }
+
+  previousPage() { 
+    if (this.page &gt; 1) {
+      this.page &#x3D; this.page - 1;
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page;
+      const cityData &#x3D; this.dataService.getBusinesses(this.page);
+      if (cityData &amp;&amp; cityData.length &gt; 0) {
+        const cityId &#x3D; cityData[0]._id.$oid; 
+        this.loadPlaces(cityId);
+      }
+    }
+  }
+
+  nextPage() { 
+    if (this.page &lt; this.dataService.getLastPageNumber()) {
+      this.page &#x3D; this.page + 1;
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page;
+      const cityData &#x3D; this.dataService.getBusinesses(this.page);
+      if (cityData &amp;&amp; cityData.length &gt; 0) {
+        const cityId &#x3D; cityData[0]._id.$oid; 
+        this.loadPlaces(cityId);
+      }
+    }
+  }
+} 
+  /* dataservice
+  ngOnInit() {
+    if (sessionStorage[&#x27;page&#x27;]) {
+      this.page &#x3D; Number(sessionStorage[&#x27;page&#x27;]); 
+    }
+
+    this.business_list &#x3D; this.dataService.getBusinesses(this.page);
+    this.applyFiltersAndSort();
+    console.log(&#x27;Raw data:&#x27;, this.business_list);
+    console.log(&#x27;Places array:&#x27;, this.business_list?.places);
+  }
+
+  applyFiltersAndSort() {
+    console.log(&#x27;Starting applyFiltersAndSort&#x27;);
+    console.log(&#x27;Current business_list:&#x27;, this.business_list);
+
+    if (!this.business_list || !this.business_list[0]?.places) {
+        console.log(&#x27;No business_list or places found&#x27;);
+        this.filteredPlaces &#x3D; [];
+        return;
+    }
+
+    // Since business_list is an array and places is inside the first object
+    let places &#x3D; [...this.business_list[0].places];
+    console.log(&#x27;Initial places:&#x27;, places);
+    
+    // Apply filters
+    places &#x3D; places.filter(place &#x3D;&gt; {
+        const typeMatch &#x3D; this.selectedType &#x3D;&#x3D;&#x3D; &#x27;all&#x27; || 
+                       place?.info?.type?.includes(this.selectedType);
+        const ratingMatch &#x3D; (place?.ratings?.average_rating || 0) &gt;&#x3D; this.minRating;
+        const mealMatch &#x3D; this.selectedMeal &#x3D;&#x3D;&#x3D; &#x27;all&#x27; || 
+                       place?.service_options?.meals?.[this.selectedMeal];
+        
+        return typeMatch &amp;&amp; ratingMatch &amp;&amp; mealMatch;
+    });
+
+    console.log(&#x27;Filtered places:&#x27;, places);
+
+    // Apply sorting
+    places.sort((a, b) &#x3D;&gt; {
+        let compareValue &#x3D; 0;
+        if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;name&#x27;) {
+            compareValue &#x3D; (a?.info?.name || &#x27;&#x27;).localeCompare(b?.info?.name || &#x27;&#x27;);
+        } else if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;rating&#x27;) {
+            compareValue &#x3D; (b?.ratings?.average_rating || 0) - (a?.ratings?.average_rating || 0);
+        }
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? compareValue : -compareValue;
+    });
+
+    console.log(&#x27;Sorted places:&#x27;, places);
+    this.filteredPlaces &#x3D; places;
+  }
+
+  updateFilter() {
+    this.applyFiltersAndSort();
+  }
+
+  updateSort(sortBy: string) {
+    if (this.sortBy &#x3D;&#x3D;&#x3D; sortBy) {
+      this.sortDirection &#x3D; this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;;
+    } else {
+      this.sortBy &#x3D; sortBy;
+      this.sortDirection &#x3D; &#x27;asc&#x27;;
+    }
+    this.applyFiltersAndSort();
+  }
+
+  previousPage() { 
+    if (this.page &gt; 1){
+      this.page &#x3D; this.page - 1 
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page;
+      this.business_list &#x3D; this.dataService.getBusinesses(this.page);
+      this.applyFiltersAndSort();
+    }
+  } 
+
+  nextPage() { 
+    if (this.page &lt; this.dataService.getLastPageNumber()){
+      this.page &#x3D; this.page + 1 
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page;
+      this.business_list &#x3D; this.dataService.getBusinesses(this.page);
+      this.applyFiltersAndSort();
+    }
+  }
+  */
+  
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;
+    Armagh food places
+&lt;/h1&gt;
+
+&lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;!-- Filtered info --&gt;
+    &lt;div&gt;
+        &lt;p&gt;Number of filtered places: {{filteredPlaces?.length}}&lt;/p&gt;
+        &lt;p&gt;First place name: {{filteredPlaces[0]?.info?.name}}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;!-- Filter Controls --&gt;
+    &lt;div class&#x3D;&quot;row mb-4&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+            &lt;select class&#x3D;&quot;form-select&quot; #typeSelect (change)&#x3D;&quot;selectedType &#x3D; typeSelect.value; updateFilter()&quot;&gt;
+                &lt;option value&#x3D;&quot;all&quot;&gt;All Types&lt;/option&gt;
+                &lt;option value&#x3D;&quot;breakfast_restaurant&quot;&gt;Breakfast Restaurant&lt;/option&gt;
+                &lt;option value&#x3D;&quot;coffee_shop&quot;&gt;Coffee Shop&lt;/option&gt;
+                &lt;option value&#x3D;&quot;cafe&quot;&gt;Cafe&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+            &lt;select class&#x3D;&quot;form-select&quot; #mealSelect (change)&#x3D;&quot;selectedMeal &#x3D; mealSelect.value; updateFilter()&quot;&gt;
+                &lt;option value&#x3D;&quot;all&quot;&gt;All Meals&lt;/option&gt;
+                &lt;option value&#x3D;&quot;breakfast&quot;&gt;Breakfast&lt;/option&gt;
+                &lt;option value&#x3D;&quot;brunch&quot;&gt;Brunch&lt;/option&gt;
+                &lt;option value&#x3D;&quot;lunch&quot;&gt;Lunch&lt;/option&gt;
+                &lt;option value&#x3D;&quot;dinner&quot;&gt;Dinner&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+            &lt;select class&#x3D;&quot;form-select&quot; #ratingSelect (change)&#x3D;&quot;minRating &#x3D; +ratingSelect.value; updateFilter()&quot;&gt;
+                &lt;option value&#x3D;&quot;0&quot;&gt;All Ratings&lt;/option&gt;
+                &lt;option value&#x3D;&quot;3&quot;&gt;3+ Stars&lt;/option&gt;
+                &lt;option value&#x3D;&quot;4&quot;&gt;4+ Stars&lt;/option&gt;
+                &lt;option value&#x3D;&quot;4.5&quot;&gt;4.5+ Stars&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+            &lt;button class&#x3D;&quot;btn btn-secondary me-2&quot; (click)&#x3D;&quot;updateSort(&#x27;name&#x27;)&quot;&gt;
+                Sort by Name
+            &lt;/button&gt;
+            &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;updateSort(&#x27;rating&#x27;)&quot;&gt;
+                Sort by Rating
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Business Cards --&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-14&quot;&gt;
+            @if (filteredPlaces &amp;&amp; filteredPlaces.length &gt; 0) {
+                @for (place of filteredPlaces; track place._id) {
+                    &lt;div class&#x3D;&quot;card text-white bg-primary mb-4&quot;
+                         style&#x3D;&quot;cursor: pointer&quot; 
+                         [routerLink]&#x3D;&quot;[&#x27;/armaghBusinesses&#x27;, place._id]&quot;&gt;
+                        &lt;div class&#x3D;&quot;card-header&quot;&gt;
+                            {{ place.info?.name }}
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+                            This business is based in {{ place.location?.address?.city }}
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;card-footer&quot;&gt;
+                            Rating: {{ place.ratings?.average_rating }}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                }
+            } @else {
+                &lt;div class&#x3D;&quot;alert alert-info&quot;&gt;
+                    No places found matching the current filters
+                &lt;/div&gt;
+            }
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Pagination --&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt; 
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt; 
+            &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;previousPage()&quot;&gt;Previous&lt;/button&gt; 
+        &lt;/div&gt; 
+        &lt;div class&#x3D;&quot;col-sm-4 text-center&quot;&gt;
+            Page {{ page }} of {{ dataService.getLastPageNumber() }}
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4 text-end&quot;&gt; 
+            &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;nextPage()&quot;&gt;Next&lt;/button&gt; 
+        &lt;/div&gt; 
+    &lt;/div&gt; 
+&lt;/div&gt;
+
+&lt;!--
+&lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-14&quot;&gt;
+            @for (business of business_list; track business._id) {
+                @for (place of business.places; track place._id) {
+                    &lt;div class&#x3D;&quot;card text-white bg-primary mb-4&quot;
+                         style &#x3D; &quot;cursor: pointer&quot; 
+                         [routerLink] &#x3D; &quot;[&#x27;/armaghBusinesses&#x27;, place._id.$oid]&quot;&gt;
+                        &lt;div class&#x3D;&quot;card-header&quot;&gt;
+                            {{ place.info?.name }}
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+                            This business is based in {{ place.location?.address?.city }}
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;card-footer&quot;&gt;
+                            Rating: {{ place.ratings?.average_rating }}
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                }
+            }
+        &lt;/div&gt; 
+    &lt;/div&gt; 
+    &lt;div class&#x3D;&quot;row&quot;&gt; 
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt; 
+           &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;previousPage()&quot;&gt;
+                Previous
+            &lt;/button&gt; 
+        &lt;/div&gt; 
+        &lt;div class&#x3D;&quot;col-sm-4 text-center&quot;&gt;
+            Page {{ this.page }} of {{ dataService.getLastPageNumber() }}
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4 text-end&quot;&gt; 
+           &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;nextPage()&quot;&gt;
+                Next
+            &lt;/button&gt; 
+        &lt;/div&gt; 
+     &lt;/div&gt; 
+&lt;/div&gt;
+--&gt;
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./armaghBusinesses.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1>    Armagh food places</h1><div class="container">    <!-- Filtered info -->    <div>        <p>Number of filtered places: {{filteredPlaces?.length}}</p>        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>    </div>    <!-- Filter Controls -->    <div class="row mb-4">        <div class="col-md-3">            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">                <option value="all">All Types</option>                <option value="breakfast_restaurant">Breakfast Restaurant</option>                <option value="coffee_shop">Coffee Shop</option>                <option value="cafe">Cafe</option>            </select>        </div>        <div class="col-md-3">            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">                <option value="all">All Meals</option>                <option value="breakfast">Breakfast</option>                <option value="brunch">Brunch</option>                <option value="lunch">Lunch</option>                <option value="dinner">Dinner</option>            </select>        </div>        <div class="col-md-3">            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">                <option value="0">All Ratings</option>                <option value="3">3+ Stars</option>                <option value="4">4+ Stars</option>                <option value="4.5">4.5+ Stars</option>            </select>        </div>        <div class="col-md-3">            <button class="btn btn-secondary me-2" (click)="updateSort(\'name\')">                Sort by Name            </button>            <button class="btn btn-secondary" (click)="updateSort(\'rating\')">                Sort by Rating            </button>        </div>    </div>    <!-- Business Cards -->    <div class="row">        <div class="col-sm-14">            @if (filteredPlaces && filteredPlaces.length > 0) {                @for (place of filteredPlaces; track place._id) {                    <div class="card text-white bg-primary mb-4"                         style="cursor: pointer"                          [routerLink]="[\'/armaghBusinesses\', place._id]">                        <div class="card-header">                            {{ place.info?.name }}                        </div>                        <div class="card-body">                            This business is based in {{ place.location?.address?.city }}                        </div>                        <div class="card-footer">                            Rating: {{ place.ratings?.average_rating }}                        </div>                    </div>                }            } @else {                <div class="alert alert-info">                    No places found matching the current filters                </div>            }        </div>    </div>    <!-- Pagination -->    <div class="row">         <div class="col-sm-4">             <button class="btn btn-primary" (click)="previousPage()">Previous</button>         </div>         <div class="col-sm-4 text-center">            Page {{ page }} of {{ dataService.getLastPageNumber() }}        </div>        <div class="col-sm-4 text-end">             <button class="btn btn-primary" (click)="nextPage()">Next</button>         </div>     </div> </div><!--<div class="container">    <div class="row">        <div class="col-sm-14">            @for (business of business_list; track business._id) {                @for (place of business.places; track place._id) {                    <div class="card text-white bg-primary mb-4"                         style = "cursor: pointer"                          [routerLink] = "[\'/armaghBusinesses\', place._id.$oid]">                        <div class="card-header">                            {{ place.info?.name }}                        </div>                        <div class="card-body">                            This business is based in {{ place.location?.address?.city }}                        </div>                        <div class="card-footer">                            Rating: {{ place.ratings?.average_rating }}                        </div>                    </div>                }            }        </div>     </div>     <div class="row">         <div class="col-sm-4">            <button class="btn btn-primary" (click)="previousPage()">                Previous            </button>         </div>         <div class="col-sm-4 text-center">            Page {{ this.page }} of {{ dataService.getLastPageNumber() }}        </div>        <div class="col-sm-4 text-end">            <button class="btn btn-primary" (click)="nextPage()">                Next            </button>         </div>      </div> </div>--></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArmaghBusinessesComponent', 'selector': 'armaghBusinesses'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BangorBusinessesComponent', 'selector': 'bangorBusinesses'},{'name': 'BelfastBusinessesComponent', 'selector': 'belfastBusinesses'},{'name': 'BusinessComponent', 'selector': 'business'},{'name': 'DerryBusinessesComponent', 'selector': 'derryBusinesses'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'LisburnBusinessesComponent', 'selector': 'lisburnBusinesses'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'NewryBusinessesComponent', 'selector': 'newryBusinesses'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ArmaghBusinessesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ArmaghBusinessesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

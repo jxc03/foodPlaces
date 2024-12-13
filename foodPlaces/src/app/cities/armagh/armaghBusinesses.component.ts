@@ -3,12 +3,12 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-/*import { WebService } from '../../web.service';*/
+import { WebService } from '../../web.service';
 
 @Component({
   selector: 'armaghBusinesses',
   imports: [RouterOutlet, CommonModule, RouterModule, FormsModule],
-  providers: [DataService, /*WebService*/],
+  providers: [DataService, WebService],
   templateUrl: './armaghBusinesses.component.html',
   styleUrls: ['./armaghBusinesses.component.css']
 })
@@ -25,7 +25,7 @@ export class ArmaghBusinessesComponent {
   sortBy: string = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(public dataService: DataService, /*private webService: WebService*/) { }
+  constructor(public dataService: DataService, private webService: WebService) { }
 
   ngOnInit() {
     if (sessionStorage['page']) {

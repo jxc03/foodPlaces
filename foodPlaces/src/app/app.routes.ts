@@ -5,6 +5,9 @@ import { BangorBusinessesComponent } from './cities/bangor/bangorBusinesses.comp
 import { BelfastBusinessesComponent } from './cities/belfast/belfastBusinesses.component';
 import { BusinessComponent } from './business.component';
 import { LisburnBusinessesComponent } from './cities/lisburn/lisburnBusinesses.component';
+import { DerryBusinessesComponent } from './cities/derryLondonderry/derryBusinesses.component';
+import { NewryBusinessesComponent } from './cities/newry/newryBusinesses.component';
+import { TestWSComponent } from './testWS.component';
 
 /*import { CitiesComponent } from './cities.component';*/
 
@@ -29,6 +32,14 @@ export const routes: Routes = [
         path: 'lisburnBusinesses',
         component: LisburnBusinessesComponent
     },
+    {
+        path: 'derryBusinesses',
+        component: DerryBusinessesComponent
+    },
+    {
+        path: 'newryBusinesses',
+        component: NewryBusinessesComponent
+    },
     {   path: 'armaghBusinesses/:id', 
         component: BusinessComponent 
     },
@@ -41,6 +52,19 @@ export const routes: Routes = [
     {   path: 'lisburnBusinesses/:id', 
         component: BusinessComponent 
     },
+    {
+        path: 'derryBusinesses/:id',
+        component: BusinessComponent
+    },
+    {
+        path: 'newryBusinesses',
+        component: BusinessComponent
+
+    },
+    { 
+        path: 'testWS', 
+        component: TestWSComponent 
+    }
 ];
 
 /*{ path: 'cities', component: CitiesComponent },*/

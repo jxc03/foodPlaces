@@ -10,19 +10,27 @@ import { Observable } from 'rxjs';
 export class WebService {
   pageSize: number = 10;
   private baseUrl = 'http://localhost:2000/api';
+  
   constructor(private http: HttpClient) {}
 
-  getPlace(cityName: string, placeId: string) {
-    return this.http.get<any>(
-        `${this.baseUrl}/cities/${cityName}/places/${placeId}`
-    );
-  } 
-
-
-  getCity(cityName: string) {
-      return this.http.get<any>(
-          `${this.baseUrl}/cities/${cityName}`
-      );
+  getPlaces(cityId: string) {
+    return this.http.get(`${this.baseUrl}/cities/${cityId}/places`);
   }
 
+  getPlace(cityId: string, placeId: string) {
+    return this.http.get(`${this.baseUrl}/cities/${cityId}/places/${placeId}`);
+  }
 }
+  /*
+  getPlaces(cityName: string, page: number) {
+    return this.http.get<any>(
+        `${this.baseUrl}/cities/${cityName}/places?pn=${page}&ps=${this.pageSize}`
+    );
+}
+
+  getPlace(cityName: string, placeId: string) {
+      return this.http.get<any>(
+          `${this.baseUrl}/cities/${cityName}/places/${placeId}`
+      );
+  }
+  */

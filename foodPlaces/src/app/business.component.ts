@@ -22,9 +22,9 @@ export class BusinessComponent {
     showAllReviews: boolean = false;
     currentPhotoIndex: number = 0;
     photosToDisplay: any[] = [];
-    business_lat: any; 
-    business_lng: any; 
-    map_options: google.maps.MapOptions = {}; 
+    business_lat: number = 0; 
+    business_lng: number = 0; 
+    map_options: google.maps.MapOptions = {zoom: 15, mapTypeId: 'roadmap'}; 
     map_locations: any[] = [ ]
 
 
@@ -32,57 +32,56 @@ export class BusinessComponent {
 
     ngOnInit() {
         const businessId = this.route.snapshot.paramMap.get('id');
-        console.log('Looking for business with ID:', businessId); // Debug log
-        
-        // Initialize Google Maps if we have business data
-        if (this.business_list?.length && this.business_list[0]?.places?.length) {
-            const place = this.business_list[0].places[0];
-            
-            // Set coordinates from business location
-            if (place?.location?.coordinates) {
-                this.business_lat = place.location.coordinates.latitude;
-                this.business_lng = place.location.coordinates.longitude;
+        console.log('Looking for business with ID:', businessId);
 
-                // Initialize map options
+        if (businessId) {
+            this.business_list = this.dataService.getBusiness(businessId);
+            console.log('Found business data:', this.business_list);
+
+            // Initialize Google Maps with business location
+            if (this.business_list?.[0]?.places?.[0]?.location?.coordinates) {
+                const coordinates = this.business_list[0].places[0].location.coordinates;
+                this.business_lat = coordinates.latitude;
+                this.business_lng = coordinates.longitude;
+                
+                console.log('Business coordinates:', this.business_lat, this.business_lng);
+
+                // Set map options
                 this.map_options = {
                     mapId: "DEMO_MAP_ID",
                     center: { 
                         lat: this.business_lat,
                         lng: this.business_lng 
                     },
-                    zoom: 15
+                    zoom: 15,
+                    mapTypeId: 'roadmap'
                 };
 
-                // Add marker for business location
+                // Add business location marker
                 this.map_locations = [{
                     lat: this.business_lat,
                     lng: this.business_lng
                 }];
             }
-        }
 
-        if (businessId) {
-            this.business_list = this.dataService.getBusiness(businessId);
-            console.log('Found business data:', this.business_list); // Debug log
-
-            // Start photos array if available
+            // Initialize photos array if available
             if (this.business_list?.[0]?.places?.[0]?.media?.photos) {
                 this.photosToDisplay = this.business_list[0].places[0].media.photos;
                 console.log('Photos loaded:', this.photosToDisplay.length);
             }
 
-            // Log reviews specifically to verify data
+            // Log reviews
             if (this.business_list && this.business_list[0]?.ratings?.recent_reviews) {
                 console.log('Reviews:', this.business_list[0].ratings.recent_reviews);
             }
         }
-        
+
         this.reviewForm = this.formBuilder.group({
-            author_name: ['', Validators.required],/*Validators.required*/
-            content: ['', Validators.required],/*Validators.required*/
+            author_name: ['', Validators.required],
+            content: ['', Validators.required],
             rating: [5],
-          });
-    } 
+        });
+    }
 
     onSubmit() {
         /*console.log(this.reviewForm.value);*/

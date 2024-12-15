@@ -2,13 +2,14 @@
     Armagh food places
 </h1>
 
-<div class="container">
-    <!-- Filtered info -->
+
+<!-- <div class="container">
+    
     <div>
         <p>Number of filtered places: {{filteredPlaces?.length}}</p>
         <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
     </div>
-    <!-- Filter Controls -->
+    
     <div class="row mb-4">
         <div class="col-md-3">
             <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
@@ -45,7 +46,7 @@
         </div>
     </div>
 
-    <!-- Business Cards -->
+    
     <div class="row">
         <div class="col-sm-14">
             @if (filteredPlaces && filteredPlaces.length > 0) {
@@ -72,7 +73,7 @@
         </div>
     </div>
 
-    <!-- Pagination -->
+   
     <div class="row"> 
         <div class="col-sm-4"> 
             <button class="btn btn-primary" (click)="previousPage()">Previous</button> 
@@ -84,7 +85,7 @@
             <button class="btn btn-primary" (click)="nextPage()">Next</button> 
         </div> 
     </div> 
-</div>
+</div> -->
 
 <!--
 <div class="container">

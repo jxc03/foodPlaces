@@ -13,6 +13,7 @@ import { WebService } from '../../web.service';
   styleUrls: ['./armaghBusinesses.component.css']
 })
 
+
 export class ArmaghBusinessesComponent {
   business_list: any = [];
   filteredPlaces: any[] = [];
@@ -29,7 +30,7 @@ export class ArmaghBusinessesComponent {
   sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(public dataService: DataService, private webService: WebService) { }
-
+  /*
   ngOnInit() {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']); 
@@ -247,5 +248,5 @@ export class ArmaghBusinessesComponent {
     }
   }
   */
-  
+}
 

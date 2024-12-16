@@ -4,7 +4,6 @@ import { appConfig } from './app/app.config';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { provideHttpClient } from '@angular/common/http';
 
-
 bootstrapApplication(AppComponent, {
   providers: [
     provideAuth0({

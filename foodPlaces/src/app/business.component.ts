@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms'; 
 import { GoogleMapsModule } from '@angular/google-maps'
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({ 
     selector: 'business', 
@@ -28,7 +29,7 @@ export class BusinessComponent {
     map_locations: any[] = [ ]
 
 
-    constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder) {}
+    constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder, public authService: AuthService) {}
 
     ngOnInit() {
         const businessId = this.route.snapshot.paramMap.get('id');
@@ -84,7 +85,25 @@ export class BusinessComponent {
     }
 
     onSubmit() {
-        /*console.log(this.reviewForm.value);*/
+        const businessId = this.route.snapshot.paramMap.get('id') || 'not-found';
+        
+        if (businessId === 'not-found') {
+            console.error('Business ID not found');
+            return;
+        }
+    
+        const success = this.dataService.postReview(businessId, this.reviewForm.value);
+        if (success) {
+            this.reviewForm.reset();
+            // Optionally add a success message here
+            this.business_list = this.dataService.getBusiness(businessId);
+        } else {
+            console.error('Failed to post review');
+        }
+    }
+    /*
+    onSubmit() {
+        //console.log(this.reviewForm.value);
         // If no ID is found, use 'not-found' as default value
         const businessId = this.route.snapshot.paramMap.get('id') || 'not-found';
         
@@ -96,6 +115,7 @@ export class BusinessComponent {
         this.dataService.postReview(businessId, this.reviewForm.value); 
         this.reviewForm.reset();
     }
+    */
 
     isInvalid(control: any) {
         return this.reviewForm.controls[control].invalid && this.reviewForm.controls[control].touched;

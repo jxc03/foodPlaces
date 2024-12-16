@@ -38,6 +38,9 @@
 
                             <!-- Photo Carousel Section -->
                             <div class="card mb-4">
+                                <div class="card-header">
+                                    Photos
+                                </div>
                                 <div class="card-body p-0">
                                     @if (place?.media?.photos?.length) {
                                         <div class="position-relative">
@@ -96,9 +99,11 @@
                             <!-- Reviews Section -->
                             <div class="row mb-4">
                                 <div class="col-sm-12">
+                                    <!-- Reviews Header -->
                                     <h3>Recent reviews ({{ place?.ratings?.review_count || 0 }} total reviews)</h3>
                                     <p>Average Rating: {{ place?.ratings?.average_rating || 0 }}</p>
                                     
+                                    <!-- Existing Reviews - Visible to All -->
                                     @if (place?.ratings?.recent_reviews?.length) {
                                         @for (review of place.ratings.recent_reviews; track review.review_id || $index) {
                                             <div class="card bg-light mb-3">
@@ -118,34 +123,51 @@
                                             </button>
                                         }
                                     }
-                                    <!-- Review Form -->
+
+                                    <!-- Add Review Section -->
                                     <div class="card mt-4">
+                                        <div class="card-header">
+                                            <h4 class="mb-0">Share Your Experience</h4>
+                                        </div>
                                         <div class="card-body">
-                                            <h2 class="mb-4">Review {{ place?.info?.name || '' }}</h2>
-                                            <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
-                                                <div class="form-group mb-3">
-                                                    <label for="author_name">Your Name</label>
-                                                    <input type="text" id="author_name" class="form-control" formControlName="author_name" [ngClass]="{ 'error' : isInvalid('author_name') }">
-                                                </div>
+                                            <ng-container *ngIf="authService.isAuthenticated$ | async; else loggedOut">
+                                                <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+                                                    <div class="form-group mb-3">
+                                                        <label for="author_name">Your Name</label>
+                                                        <input type="text" id="author_name" class="form-control" 
+                                                            formControlName="author_name" 
+                                                            [ngClass]="{ 'error' : isInvalid('author_name') }">
+                                                    </div>
 
-                                                <div class="form-group mb-3">
-                                                    <label for="content">Your Review</label>
-                                                    <textarea id="content" class="form-control" formControlName="content" rows="4" [ngClass]="{ 'error' : isInvalid('content') }"></textarea>
-                                                </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="content">Your Review</label>
+                                                        <textarea id="content" class="form-control" 
+                                                                formControlName="content" rows="4" 
+                                                                [ngClass]="{ 'error' : isInvalid('content') }"></textarea>
+                                                    </div>
 
-                                                <div class="form-group mb-3">
-                                                    <label for="rating">Rating</label>
-                                                    <select id="rating" class="form-control" formControlName="rating">
-                                                        <option value="1">1 star</option>
-                                                        <option value="2">2 stars</option>
-                                                        <option value="3">3 stars</option>
-                                                        <option value="4">4 stars</option>
-                                                        <option value="5">5 stars</option>
-                                                    </select>
-                                                </div>
-                                                <span *ngIf="isIncomplete()">Complete all fields</span>       
-                                                <button *ngIf="!isIncomplete()"type="submit" class="btn btn-primary mt-3">Submit Review</button>
-                                            </form>
+                                                    <div class="form-group mb-3">
+                                                        <label for="rating">Rating</label>
+                                                        <select id="rating" class="form-control" formControlName="rating">
+                                                            <option value="1">1 star</option>
+                                                            <option value="2">2 stars</option>
+                                                            <option value="3">3 stars</option>
+                                                            <option value="4">4 stars</option>
+                                                            <option value="5">5 stars</option>
+                                                        </select>
+                                                    </div>
+                                                    <span *ngIf="isIncomplete()" class="text-danger">Complete all fields</span>       
+                                                    <button *ngIf="!isIncomplete()" type="submit" 
+                                                            class="btn btn-primary mt-3">Submit Review</button>
+                                                </form>
+                                            </ng-container>
+
+                                            <ng-template #loggedOut>
+                                                <p class="mb-0">Want to share your experience? 
+                                                    <a href="#" (click)="authService.loginWithRedirect()">Log in</a> 
+                                                    to write a review for {{ place?.info?.name || '' }}.
+                                                </p>
+                                            </ng-template>
                                         </div>
                                     </div>
                                 </div>

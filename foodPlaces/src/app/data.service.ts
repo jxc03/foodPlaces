@@ -16,10 +16,27 @@ export class DataService {
         return (jsonData as any[]).slice(pageStart, pageEnd);
     }
     */
+
+    constructor() {
+        // Load saved data from localStorage
+        const savedData = localStorage.getItem('businessData');
+        if (savedData) {
+            const parsedData = JSON.parse(savedData);
+            // Update jsonData with saved data
+            if (Array.isArray(parsedData)) {
+                for (let i = 0; i < parsedData.length; i++) {
+                    if (parsedData[i]?.places) {
+                        (jsonData as any[])[i].places = parsedData[i].places;
+                    }
+                }
+            }
+        }
+    }
+
     getBusinesses(page: number, cityId: string = 'c_arm') {
         // Find the city that has places (in this case, Armagh)
         const cityData = (jsonData as any []).find((city: any) => city.city_id === cityId);
-        
+
         if (!cityData) return [];
 
         // Apply pagination to the places array
@@ -70,7 +87,7 @@ export class DataService {
         // First, search through all cities
         for (const city of jsonData as any[]) {
             // Then search through each city's places
-            const place = city.places.find((p: any) => p._id.$oid === businessId);
+            const place = city.places?.find((p: any) => p._id?.$oid === businessId);
             if (place) {
                 return [{
                     _id: city._id,
@@ -89,6 +106,61 @@ export class DataService {
         return Math.ceil(totalPlaces / this.pageSize);  
     } 
 
+    postReview(businessId: string, review: any): boolean { 
+        let newReview = { 
+            author_name: review.author_name, 
+            content: review.content, 
+            rating: Number(review.rating),
+            date_posted: new Date(),
+            review_id: `review_${Date.now()}`
+        }; 
+    
+        let businessFound = false;
+        //const data = jsonData as any[];
+    
+        for (const city of (jsonData as any[])) {
+            if (!city.places) continue;
+            
+            const place = city.places.find((p: any) => p._id?.$oid === businessId);
+            if (place) {
+                // Initialize ratings if needed
+                if (!place.ratings) {
+                    place.ratings = {
+                        average_rating: 0,
+                        review_count: 0,
+                        recent_reviews: []
+                    };
+                }
+    
+                // Add new review
+                place.ratings.recent_reviews = place.ratings.recent_reviews || [];
+                place.ratings.recent_reviews.push(newReview);
+    
+                // Update statistics
+                const oldCount = place.ratings.review_count || 0;
+                const newCount = oldCount + 1;
+                const oldTotal = (place.ratings.average_rating || 0) * oldCount;
+                const newTotal = oldTotal + newReview.rating;
+                
+                place.ratings.review_count = newCount;
+                place.ratings.average_rating = Number((newTotal / newCount).toFixed(1));
+                
+                businessFound = true;
+                localStorage.setItem('businessData', JSON.stringify(jsonData));
+                break;
+            }
+        }
+    
+        if (!businessFound) {
+            console.error('Business not found:', businessId);
+            return false;
+        }
+    
+        return true;
+    }
+    
+    
+    /*
     postReview(businessId: string, review: any) { 
         let newReview = { 
             'author_name': review.author_name, 
@@ -138,6 +210,7 @@ export class DataService {
             }
         }
     }
+    */
     
     private calculateAverageRating(reviews: any[]): number {
         if (!reviews.length) return 0;

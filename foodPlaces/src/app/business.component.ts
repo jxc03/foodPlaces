@@ -27,7 +27,8 @@ export class BusinessComponent {
     business_lng: number = 0; 
     map_options: google.maps.MapOptions = {zoom: 15, mapTypeId: 'roadmap'}; 
     map_locations: any[] = [ ]
-
+    editingReviewId: string | null = null;
+    userEmail: string | null = null;
 
     constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder, public authService: AuthService) {}
 
@@ -82,6 +83,53 @@ export class BusinessComponent {
             content: ['', Validators.required],
             rating: [5],
         });
+
+        this.authService.user$.subscribe(user => {
+            console.log('Logged-in user:', user);
+            this.userEmail = user?.email || null;
+            console.log('Auth0 user email:', this.userEmail);
+        });
+
+        /*
+        this.authService.user$.subscribe(user => {
+            console.log('Auth0 user:', user);
+            if (this.business_list?.[0]?.places?.[0]?.ratings?.recent_reviews) {
+                console.log('Reviews:', this.business_list[0].places[0].ratings.recent_reviews);
+            }
+        });
+        */
+    }
+
+
+    logUserReview(userName: string, reviewAuthor: string) {
+        console.log('Comparing:', userName, 'with', reviewAuthor);
+    }
+
+    editReview(review: any) {
+        // Pre-fill the form with existing review data
+        this.reviewForm.patchValue({
+            author_name: review.author_name,
+            content: review.content,
+            rating: review.rating
+        });
+    
+        // Store the review ID being edited
+        this.editingReviewId = review.review_id;
+    }
+    
+    deleteReview(reviewId: string) {
+        if (confirm('Are you sure you want to delete this review?')) {
+            const businessId = this.route.snapshot.paramMap.get('id');
+            if (businessId) {
+                const success = this.dataService.deleteReview(businessId, reviewId);
+                if (success) {
+                    // Refresh the business data
+                    this.business_list = this.dataService.getBusiness(businessId);
+                } else {
+                    console.error('Failed to delete review');
+                }
+            }
+        }
     }
 
     onSubmit() {
@@ -91,16 +139,32 @@ export class BusinessComponent {
             console.error('Business ID not found');
             return;
         }
-    
-        const success = this.dataService.postReview(businessId, this.reviewForm.value);
+        
+        const reviewData = {
+            ...this.reviewForm.value,
+            userEmail: this.userEmail  // Add the email for tracking
+        };
+
+        let success = false;
+        if (this.editingReviewId) {
+            // Edits existing review
+            success = this.dataService.editReview(businessId, this.editingReviewId, reviewData);
+            this.editingReviewId = null; // Resets edit
+        } else {
+            // Posts new reviews
+            success = this.dataService.postReview(businessId, reviewData);
+        }
+
         if (success) {
             this.reviewForm.reset();
-            // Optionally add a success message here
+            // Add a success message for user
+            // Refreshes the data
             this.business_list = this.dataService.getBusiness(businessId);
         } else {
             console.error('Failed to post review');
         }
     }
+
     /*
     onSubmit() {
         //console.log(this.reviewForm.value);

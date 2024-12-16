@@ -112,7 +112,8 @@ export class DataService {
             content: review.content, 
             rating: Number(review.rating),
             date_posted: new Date(),
-            review_id: `review_${Date.now()}`
+            review_id: `review_${Date.now()}`,
+            userEmail: review.userEmail
         }; 
     
         let businessFound = false;
@@ -159,6 +160,81 @@ export class DataService {
         return true;
     }
     
+    editReview(businessId: string, reviewId: string, reviewData: any): boolean {
+        for (const city of (jsonData as any[])) {
+            if (!city.places) continue;
+            
+            const place = city.places.find((p: any) => p._id?.$oid === businessId);
+            if (place?.ratings?.recent_reviews) {
+                const reviewIndex = place.ratings.recent_reviews.findIndex(
+                    (r: any) => r.review_id === reviewId
+                );
+    
+                if (reviewIndex !== -1) {
+                    // Keep original review_id and add edit information
+                    place.ratings.recent_reviews[reviewIndex] = {
+                        ...reviewData,
+                        review_id: reviewId,
+                        edited: true,
+                        edit_date: new Date(),
+                        userEmail: reviewData.userEmail || place.ratings.recent_reviews[reviewIndex].userEmail
+                    };
+                    
+                    // Recalculate average rating if needed
+                    this.updateAverageRating(place);
+                    localStorage.setItem('businessData', JSON.stringify(jsonData));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private updateAverageRating(place: any) {
+        if (place.ratings?.recent_reviews?.length) {
+            const reviews = place.ratings.recent_reviews;
+            const totalRating = reviews.reduce((sum: number, r: any) => sum + Number(r.rating), 0);
+            place.ratings.average_rating = Number((totalRating / reviews.length).toFixed(1));
+        }
+    }
+    
+    deleteReview(businessId: string, reviewId: string): boolean {
+        let reviewDeleted = false;
+    
+        for (const city of (jsonData as any[])) {
+            if (!city.places) continue;
+            
+            const place = city.places.find((p: any) => p._id?.$oid === businessId);
+            if (place?.ratings?.recent_reviews) {
+                const reviewIndex = place.ratings.recent_reviews.findIndex(
+                    (r: any) => r.review_id === reviewId
+                );
+    
+                if (reviewIndex !== -1) {
+                    // Remove the review
+                    place.ratings.recent_reviews.splice(reviewIndex, 1);
+                    
+                    // Update review count
+                    place.ratings.review_count = place.ratings.recent_reviews.length;
+    
+                    // Recalculate average rating
+                    if (place.ratings.recent_reviews.length > 0) {
+                        const reviews = place.ratings.recent_reviews;
+                        const totalRating = reviews.reduce((sum: number, r: any) => sum + Number(r.rating), 0);
+                        place.ratings.average_rating = Number((totalRating / reviews.length).toFixed(1));
+                    } else {
+                        place.ratings.average_rating = 0;
+                    }
+    
+                    reviewDeleted = true;
+                    localStorage.setItem('businessData', JSON.stringify(jsonData));
+                    break;
+                }
+            }
+        }
+    
+        return reviewDeleted;
+    }
     
     /*
     postReview(businessId: string, review: any) { 

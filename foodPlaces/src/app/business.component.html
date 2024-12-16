@@ -107,69 +107,87 @@
                                     @if (place?.ratings?.recent_reviews?.length) {
                                         @for (review of place.ratings.recent_reviews; track review.review_id || $index) {
                                             <div class="card bg-light mb-3">
-                                                <div class="card-header">{{ review.author_name }}</div>
-                                                <div class="card-body">{{ review.content }}</div>
+                                                <div class="card-header d-flex justify-content-between align-items-center">
+                                                    <span>{{ review.author_name }}</span>
+                                                    <ng-container *ngIf="authService.user$ | async as user">
+                                                        @if (user?.email === review.userEmail) {
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-sm btn-outline-primary" 
+                                                                        (click)="editReview(review)">
+                                                                    Edit
+                                                                </button>
+                                                                <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                                        (click)="deleteReview(review.review_id)">
+                                                                    Delete
+                                                                </button>
+                                                            </div>
+                                                        }
+                                                    </ng-container>
+                                                </div>
+                                                <div class="card-body">
+                                                    {{ review.content }}
+                                                    @if (review.edited) {
+                                                        <small class="text-muted ms-2">(edited)</small>
+                                                    }
+                                                </div>
                                                 <div class="card-footer">
                                                     Rating: {{ review.rating }} stars
                                                     <br>
                                                     <small class="text-muted">Posted: {{ review.date_posted | date }}</small>
+                                                    @if (review.edit_date) {
+                                                        <br>
+                                                        <small class="text-muted">Last edited: {{ review.edit_date | date }}</small>
+                                                    }
                                                 </div>
                                             </div>
                                         }
-                                        <!-- View All/Less Reviews Button -->
-                                        @if (place.ratings.recent_reviews.length > 3) {
-                                            <button class="btn btn-secondary mt-3" (click)="toggleReviews()">
-                                                {{ showAllReviews ? 'Show Less Reviews' : 'View All Reviews' }}
-                                            </button>
-                                        }
+                                        <!-- Add Review Section -->
+                                        <div class="card mt-4">
+                                            <div class="card-header">
+                                                <h4 class="mb-0">Share Your Experience</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <ng-container *ngIf="authService.isAuthenticated$ | async; else loggedOut">
+                                                    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+                                                        <div class="form-group mb-3">
+                                                            <label for="author_name">Your Name</label>
+                                                            <input type="text" id="author_name" class="form-control" 
+                                                                formControlName="author_name" 
+                                                                [ngClass]="{ 'error' : isInvalid('author_name') }">
+                                                        </div>
+
+                                                        <div class="form-group mb-3">
+                                                            <label for="content">Your Review</label>
+                                                            <textarea id="content" class="form-control" 
+                                                                    formControlName="content" rows="4" 
+                                                                    [ngClass]="{ 'error' : isInvalid('content') }"></textarea>
+                                                        </div>
+
+                                                        <div class="form-group mb-3">
+                                                            <label for="rating">Rating</label>
+                                                            <select id="rating" class="form-control" formControlName="rating">
+                                                                <option value="1">1 star</option>
+                                                                <option value="2">2 stars</option>
+                                                                <option value="3">3 stars</option>
+                                                                <option value="4">4 stars</option>
+                                                                <option value="5">5 stars</option>
+                                                            </select>
+                                                        </div>
+                                                        <span *ngIf="isIncomplete()" class="text-danger">Complete all fields</span>       
+                                                        <button *ngIf="!isIncomplete()" type="submit" 
+                                                                class="btn btn-primary mt-3">Submit Review</button>
+                                                    </form>
+                                                </ng-container>
+
+                                                <ng-template #loggedOut>
+                                                    <p class="mb-0">Want to share your experience? 
+                                                        <a href="#" (click)="authService.loginWithRedirect()">Log in</a> 
+                                                        to write a review for {{ place?.info?.name || '' }}.
+                                                    </p>
+                                                </ng-template>
+                                            </div>
+                                        </div>
                                     }
-
-                                    <!-- Add Review Section -->
-                                    <div class="card mt-4">
-                                        <div class="card-header">
-                                            <h4 class="mb-0">Share Your Experience</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <ng-container *ngIf="authService.isAuthenticated$ | async; else loggedOut">
-                                                <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
-                                                    <div class="form-group mb-3">
-                                                        <label for="author_name">Your Name</label>
-                                                        <input type="text" id="author_name" class="form-control" 
-                                                            formControlName="author_name" 
-                                                            [ngClass]="{ 'error' : isInvalid('author_name') }">
-                                                    </div>
-
-                                                    <div class="form-group mb-3">
-                                                        <label for="content">Your Review</label>
-                                                        <textarea id="content" class="form-control" 
-                                                                formControlName="content" rows="4" 
-                                                                [ngClass]="{ 'error' : isInvalid('content') }"></textarea>
-                                                    </div>
-
-                                                    <div class="form-group mb-3">
-                                                        <label for="rating">Rating</label>
-                                                        <select id="rating" class="form-control" formControlName="rating">
-                                                            <option value="1">1 star</option>
-                                                            <option value="2">2 stars</option>
-                                                            <option value="3">3 stars</option>
-                                                            <option value="4">4 stars</option>
-                                                            <option value="5">5 stars</option>
-                                                        </select>
-                                                    </div>
-                                                    <span *ngIf="isIncomplete()" class="text-danger">Complete all fields</span>       
-                                                    <button *ngIf="!isIncomplete()" type="submit" 
-                                                            class="btn btn-primary mt-3">Submit Review</button>
-                                                </form>
-                                            </ng-container>
-
-                                            <ng-template #loggedOut>
-                                                <p class="mb-0">Want to share your experience? 
-                                                    <a href="#" (click)="authService.loginWithRedirect()">Log in</a> 
-                                                    to write a review for {{ place?.info?.name || '' }}.
-                                                </p>
-                                            </ng-template>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         }

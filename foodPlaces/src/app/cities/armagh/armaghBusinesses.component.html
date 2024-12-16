@@ -1,9 +1,108 @@
+<h1>Armagh food places</h1>
+
+<div class="container">
+    <div>
+        <p>Number of filtered places: {{filteredPlaces?.length}}</p>
+        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
+                <option value="all">All Types</option>
+                <option value="breakfast_restaurant">Breakfast Restaurant</option>
+                <option value="coffee_shop">Coffee Shop</option>
+                <option value="cafe">Cafe</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">
+                <option value="all">All Meals</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="brunch">Brunch</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">
+                <option value="0">All Ratings</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary me-2" (click)="updateSort('name')">
+                Sort by Name 
+                <span *ngIf="sortBy === 'name'">
+                    ({{sortDirection === 'asc' ? '↑' : '↓'}})
+                </span>
+            </button>
+            <button class="btn btn-secondary" (click)="updateSort('rating')">
+                Sort by Rating
+                <span *ngIf="sortBy === 'rating'">
+                    ({{sortDirection === 'asc' ? '↑' : '↓'}})
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-14">
+            @if (filteredPlaces && filteredPlaces.length > 0) {
+                @for (place of filteredPlaces; track place._id) {
+                    <div class="card text-white bg-primary mb-4"
+                         style="cursor: pointer" 
+                         [routerLink]="['/armaghBusinesses', place._id]">
+                        <div class="card-header">
+                            {{ place.info?.name }}
+                        </div>
+                        <div class="card-body">
+                            This business is based in {{ place.location?.address?.city }}
+                        </div>
+                        <div class="card-footer">
+                            Rating: {{ place.ratings?.average_rating }}
+                        </div>
+                    </div>
+                }
+            } @else {
+                <div class="alert alert-info">
+                    No places found matching the current filters
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row"> 
+        <div class="col-sm-4"> 
+            <button class="btn btn-primary" 
+                    (click)="previousPage()"
+                    [disabled]="page <= 1">
+                Previous
+            </button> 
+        </div> 
+        <div class="col-sm-4 text-center">
+            Page {{ page }} of {{ totalPages }}
+        </div>
+        <div class="col-sm-4 text-end"> 
+            <button class="btn btn-primary" 
+                    (click)="nextPage()"
+                    [disabled]="page >= totalPages">
+                Next
+            </button> 
+        </div> 
+    </div> 
+</div>
+
+
+<!--
 <h1>
     Armagh food places
 </h1>
 
 
-<!-- <div class="container">
+<div class="container">
     
     <div>
         <p>Number of filtered places: {{filteredPlaces?.length}}</p>
@@ -85,7 +184,96 @@
             <button class="btn btn-primary" (click)="nextPage()">Next</button> 
         </div> 
     </div> 
-</div> -->
+</div><h1>
+    Armagh food places
+</h1>
+
+
+<div class="container">
+    
+    <div>
+        <p>Number of filtered places: {{filteredPlaces?.length}}</p>
+        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
+                <option value="all">All Types</option>
+                <option value="breakfast_restaurant">Breakfast Restaurant</option>
+                <option value="coffee_shop">Coffee Shop</option>
+                <option value="cafe">Cafe</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">
+                <option value="all">All Meals</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="brunch">Brunch</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">
+                <option value="0">All Ratings</option>
+                <option value="3">3+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary me-2" (click)="updateSort('name')">
+                Sort by Name
+            </button>
+            <button class="btn btn-secondary" (click)="updateSort('rating')">
+                Sort by Rating
+            </button>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-sm-14">
+            @if (filteredPlaces && filteredPlaces.length > 0) {
+                @for (place of filteredPlaces; track place._id) {
+                    <div class="card text-white bg-primary mb-4"
+                         style="cursor: pointer" 
+                         [routerLink]="['/armaghBusinesses', place._id]">
+                        <div class="card-header">
+                            {{ place.info?.name }}
+                        </div>
+                        <div class="card-body">
+                            This business is based in {{ place.location?.address?.city }}
+                        </div>
+                        <div class="card-footer">
+                            Rating: {{ place.ratings?.average_rating }}
+                        </div>
+                    </div>
+                }
+            } @else {
+                <div class="alert alert-info">
+                    No places found matching the current filters
+                </div>
+            }
+        </div>
+    </div>
+
+   
+    <div class="row"> 
+        <div class="col-sm-4"> 
+            <button class="btn btn-primary" (click)="previousPage()">Previous</button> 
+        </div> 
+        <div class="col-sm-4 text-center">
+            Page {{ page }} of {{ dataService.getLastPageNumber() }}
+        </div>
+        <div class="col-sm-4 text-end"> 
+            <button class="btn btn-primary" (click)="nextPage()">Next</button> 
+        </div> 
+    </div> 
+</div>
+-->
+
 
 <!--
 <div class="container">

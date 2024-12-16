@@ -32,7 +32,7 @@ export class BelfastBusinessesComponent {
 
   constructor(public dataService: DataService, private webService: WebService) { }
 
-  
+  /*
   ngOnInit() {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']); 
@@ -149,6 +149,7 @@ export class BelfastBusinessesComponent {
     }
     */
 
+    /*
   nextPage() { 
     if (this.page < this.dataService.getLastPageNumber()) {
       this.page = this.page + 1;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { DataService } from '../../data.service';
+//import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WebService } from '../../web.service';
@@ -8,19 +8,20 @@ import { WebService } from '../../web.service';
 @Component({
   selector: 'armaghBusinesses',
   imports: [RouterOutlet, CommonModule, RouterModule, FormsModule],
-  providers: [DataService, WebService],
+  providers: [/*DataService,*/ WebService],
   templateUrl: './armaghBusinesses.component.html',
   styleUrls: ['./armaghBusinesses.component.css']
 })
 
 
 export class ArmaghBusinessesComponent {
+  pageSize = 10;
   business_list: any = [];
   filteredPlaces: any[] = [];
   /*cityId: string = 'c_armagh';*/
-  /*cityId: string = 'armagh';*/
+  cityId: string = '67267637aeb441ea7afa163a';
   page: number = 1;
-
+  totalPages: number = 1;
 
   // Filters
   selectedType: string = 'all';
@@ -29,70 +30,85 @@ export class ArmaghBusinessesComponent {
   sortBy: string = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(public dataService: DataService, private webService: WebService) { }
-  /*
+  constructor(/*public dataService: DataService,*/ private webService: WebService) { }
+  
   ngOnInit() {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']); 
     }
-    
-    const cityData = this.dataService.getBusinesses(this.page);
-    console.log('City Data from service:', cityData);
-
-    if (cityData && cityData.length > 0) {
-      // Access the $oid value from the _id field
-      const cityId = cityData[0]._id.$oid;
-      console.log('Found city ID:', cityId);
-      
-      if (cityId) {
-        this.loadPlaces(cityId);
-      } else {
-        console.error('City ID is undefined or null');
-      }
-    } else {
-      console.error('Invalid city data structure:', cityData);
-    }
+    this.fetchPlaces();
   }
+  
+  fetchPlaces() {
+    const filters = {
+      type: this.selectedType,
+      selectedMeal: this.selectedMeal,
+      min_rating: this.minRating,
+      sortBy: this.sortBy,
+      sortDirection: this.sortDirection
+    };
+  
+    console.log('Loading places with filters:', filters);
+  
+    this.webService.getPlaces(this.cityId, this.page, filters).subscribe({
+      next: (response: any) => {
+        console.log('Raw API Response:', response);
+  
+        if (response && response.places) {
+          // Remove duplicates by info.name
+          const uniquePlaces = this.removeDuplicatePlacesByName(response.places);
+          
+          this.filteredPlaces = uniquePlaces;
 
-  loadPlaces(cityId: string) {
-    console.log('Loading places for city ID:', cityId);
-    
-    this.webService.getPlaces(cityId)
-      .subscribe({
-        next: (response: any) => {
-          console.log('API Response:', response);
-          // Check if response is an object with a places property
-          if (response && response.places && Array.isArray(response.places)) {
-            this.business_list = response.places;
-          } else if (Array.isArray(response)) {
-            this.business_list = response;
+          /*
+          // Process the unique list
+          this.business_list = uniquePlaces;
+          this.applyFiltersAndSort(uniquePlaces);
+          */
+
+          // Pagination
+          if (response.pagination) {
+            this.page = response.pagination?.current_page;
+            this.totalPages = response.pagination?.total_pages;
           } else {
-            console.error('Unexpected response format:', response);
-            this.business_list = [];
+            this.totalPages = 1;
           }
-          this.applyFiltersAndSort();
-        },
-        error: (error) => {
-          console.error('Error loading places:', error);
-          this.business_list = [];
+  
+          console.log(`Page ${this.page} of ${this.totalPages}`);
+        } else {
+          console.error('Unexpected response format:', response);
           this.filteredPlaces = [];
+          this.totalPages = 1;
         }
-      });
+      },
+      error: (error: any) => {
+        console.error('Error loading places:', error);
+        this.filteredPlaces = [];
+        this.totalPages = 1;
+      }
+    });
   }
 
-  applyFiltersAndSort() {
-    console.log('Current business_list:', this.business_list);
-    
-    if (!Array.isArray(this.business_list)) {
-      this.filteredPlaces = [];
-      return;
-    }
+  removeDuplicatePlacesByName(places: any[]): any[] {
+    const uniquePlaces: any[] = [];
+    const seenNames = new Set<string>();
+  
+    places.forEach(place => {
+      const placeName = place?.info?.name?.trim().toLowerCase(); // Normalize the name
+      if (placeName && !seenNames.has(placeName)) {
+        seenNames.add(placeName); // Add the name to the Set
+        uniquePlaces.push(place); // Add this place to the final list
+      }
+    });
+  
+    return uniquePlaces; // Return the list without duplicates
+  }
 
-    // Create a copy of the array
-    let places = [...this.business_list];
-    
+  applyFiltersAndSort(places: any[]) {
+    console.log('Starting filtering with places:', places.length);
+
     // Apply filters
-    this.filteredPlaces = places.filter(place => {
+    this.filteredPlaces = places.filter((place: any) => {
       const typeMatch = this.selectedType === 'all' || 
                      place?.info?.type?.includes(this.selectedType);
       const ratingMatch = (place?.ratings?.average_rating || 0) >= this.minRating;
@@ -104,7 +120,7 @@ export class ArmaghBusinessesComponent {
 
     // Apply sorting
     if (this.sortBy === 'name') {
-      this.filteredPlaces.sort((a, b) => {
+      this.filteredPlaces.sort((a: any, b: any) => {
         const nameA = a?.info?.name || '';
         const nameB = b?.info?.name || '';
         return this.sortDirection === 'asc' ? 
@@ -112,20 +128,21 @@ export class ArmaghBusinessesComponent {
           nameB.localeCompare(nameA);
       });
     } else if (this.sortBy === 'rating') {
-      this.filteredPlaces.sort((a, b) => {
+      this.filteredPlaces.sort((a: any, b: any) => {
         const ratingA = a?.ratings?.average_rating || 0;
         const ratingB = b?.ratings?.average_rating || 0;
-        return this.sortDirection === 'asc' ? 
-          ratingA - ratingB : 
-          ratingB - ratingA;
+        const comparison = ratingA - ratingB;
+        return this.sortDirection === 'asc' ? comparison : -comparison;
       });
     }
 
-    console.log('Filtered places:', this.filteredPlaces);
-  } 
+    console.log('After filtering and sorting:', this.filteredPlaces.length);
+  }
 
   updateFilter() {
-    this.applyFiltersAndSort();
+    this.page = 1;
+    sessionStorage['page'] = this.page;
+    this.fetchPlaces();
   }
 
   updateSort(sortBy: string) {
@@ -135,30 +152,22 @@ export class ArmaghBusinessesComponent {
       this.sortBy = sortBy;
       this.sortDirection = 'asc';
     }
-    this.applyFiltersAndSort();
+    this.fetchPlaces();
   }
 
   previousPage() { 
     if (this.page > 1) {
-      this.page = this.page - 1;
+      this.page--;
       sessionStorage['page'] = this.page;
-      const cityData = this.dataService.getBusinesses(this.page);
-      if (cityData && cityData.length > 0) {
-        const cityId = cityData[0]._id.$oid; 
-        this.loadPlaces(cityId);
-      }
+      this.fetchPlaces();
     }
   }
 
   nextPage() { 
-    if (this.page < this.dataService.getLastPageNumber()) {
-      this.page = this.page + 1;
+    if (this.page < this.totalPages) {
+      this.page++;
       sessionStorage['page'] = this.page;
-      const cityData = this.dataService.getBusinesses(this.page);
-      if (cityData && cityData.length > 0) {
-        const cityId = cityData[0]._id.$oid; 
-        this.loadPlaces(cityId);
-      }
+      this.fetchPlaces();
     }
   }
 } 
@@ -248,5 +257,4 @@ export class ArmaghBusinessesComponent {
     }
   }
   */
-}
 

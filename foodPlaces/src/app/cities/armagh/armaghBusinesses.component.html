@@ -1,11 +1,13 @@
 <h1>Armagh food places</h1>
 
 <div class="container">
+    <!-- Filter info -->
     <div>
         <p>Number of filtered places: {{filteredPlaces?.length}}</p>
         <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
     </div>
     
+    <!-- Filter options -->
     <div class="row mb-4">
         <div class="col-md-3">
             <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
@@ -47,7 +49,8 @@
             </button>
         </div>
     </div>
-
+    
+    <!-- Business cards -->
     <div class="row">
         <div class="col-sm-14">
             @if (filteredPlaces && filteredPlaces.length > 0) {

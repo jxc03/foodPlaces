@@ -94,7 +94,7 @@ export class ArmaghBusinessesComponent {
     const seenNames = new Set<string>();
   
     places.forEach(place => {
-      const placeName = place?.info?.name?.trim().toLowerCase(); // Normalize the name
+      const placeName = place?.info?.name?.trim().toLowerCase(); // Tweak the name
       if (placeName && !seenNames.has(placeName)) {
         seenNames.add(placeName); // Add the name to the Set
         uniquePlaces.push(place); // Add this place to the final list

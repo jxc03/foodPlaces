@@ -124,6 +124,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component that handles the display and management of Bangor business listings
+Provides filtering, sorting, and pagination functionality for business data</p>
+
+    </p>
 
 
 
@@ -146,6 +154,7 @@
                 <td class="col-md-3">providers</td>
                 <td class="col-md-9">
                                 <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
+                                <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
                 </td>
             </tr>
 
@@ -232,6 +241,9 @@
                             <li>
                                 <a href="#sortDirection" >sortDirection</a>
                             </li>
+                            <li>
+                                <a href="#totalPages" >totalPages</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -248,6 +260,9 @@
                                 <a href="#applyFiltersAndSort" >applyFiltersAndSort</a>
                             </li>
                             <li>
+                                <a href="#fetchPlaces" >fetchPlaces</a>
+                            </li>
+                            <li>
                                 <a href="#nextPage" >nextPage</a>
                             </li>
                             <li>
@@ -255,6 +270,9 @@
                             </li>
                             <li>
                                 <a href="#previousPage" >previousPage</a>
+                            </li>
+                            <li>
+                                <a href="#removeDuplicatePlacesByName" >removeDuplicatePlacesByName</a>
                             </li>
                             <li>
                                 <a href="#updateFilter" >updateFilter</a>
@@ -280,17 +298,19 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>)</code>
+<code>constructor(dataService: <a href="../injectables/DataService.html" target="_self">DataService</a>, webService: <a href="../injectables/WebService.html" target="_self">WebService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:60</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Creates BangorBusinessesComponent</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -299,6 +319,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -313,6 +334,26 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>for handling imported JSON data</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>webService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/WebService.html" target="_self" >WebService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>for making API calls (connecting to backend)</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -345,21 +386,100 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>applyFiltersAndSort()</code>
+<code>applyFiltersAndSort(places: any[])</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:160</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Applies all current filters and sorting criteria to the places array
+Filters by business type, minimum rating, and meal options
+Sorts results by either name or rating in ascending/descending order</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>places</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>array of places to filter and sort</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchPlaces"></a>
+                    <span class="name">
+                        <span ><b>fetchPlaces</b></span>
+                        <a href="#fetchPlaces"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fetchPlaces()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches businesses based on current filters and pagination
+Updates filteredPlaces array with the results</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -389,14 +509,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="106"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:106</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="237"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:237</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to next page if available</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -426,14 +548,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Runs on component
+Restores page number from session storage if available
+Fetches initial data</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -463,19 +589,96 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="225"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:225</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to previous page if available</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeDuplicatePlacesByName"></a>
+                    <span class="name">
+                        <span ><b>removeDuplicatePlacesByName</b></span>
+                        <a href="#removeDuplicatePlacesByName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeDuplicatePlacesByName(places: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes duplicate businesses based on name</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>places</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>array of place to remove duplicated</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>any[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>array of none duplicated</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -500,14 +703,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="83"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:83</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:200</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates filters and refreshes the business list
+Resets to first page when filters change</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -537,14 +743,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:211</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates sort cirteria and refreshes the business list</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -555,6 +763,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -569,6 +778,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>sortBy Field to sort by name or rating</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -614,10 +827,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:37</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of all businesses before filtering</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -640,15 +859,21 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;c_ban&#x27;</code>
+                        <i>Default value : </i><code>&#x27;67267637aeb441ea7afa1bd0&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:43</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>MongoDB ID for Bangor city</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -672,10 +897,15 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:67</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">for handling imported JSON data</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -703,10 +933,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:39</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of businesses after applying filters and sorting</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -734,10 +970,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:56</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Minimum rating filter, defaults to show all ratings</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -765,10 +1007,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:47</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current page number, starting from 1</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -796,10 +1044,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:54</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Selected meal type filter</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -827,10 +1081,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:52</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Selected business type filter, defaults to show all types</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -858,10 +1118,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:58</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current sort field, defaults to business name</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -889,7 +1155,44 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sort direction, ascending or descending, default to ascending</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalPages"></a>
+                    <span class="name">
+                        <span ><b>totalPages</b></span>
+                        <a href="#totalPages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/cities/bangor/bangorBusinesses.component.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -907,30 +1210,245 @@ import { RouterOutlet, RouterModule } from &#x27;@angular/router&#x27;;
 import { DataService } from &#x27;../../data.service&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { WebService } from &#x27;../../web.service&#x27;;
 
+/**
+ * Component that handles the display and management of Bangor business listings
+ * Provides filtering, sorting, and pagination functionality for business data
+ */
 @Component({
   selector: &#x27;bangorBusinesses&#x27;,
   imports: [RouterOutlet, RouterModule, CommonModule, FormsModule],
-  providers: [DataService],
+  providers: [DataService, WebService],
   templateUrl: &#x27;./bangorBusinesses.component.html&#x27;,
   styleUrls: [&#x27;./bangorBusinesses.component.css&#x27;]
 })
 
+/**
+ * Component that manages the display of businesses in Bangor
+ * Provides functionality for:
+ * - Displaying a paginated list of businesses
+ * - Filtering businesses by type, meal options, and minimum rating
+ * - Sorting businesses by name or rating
+ * - Removing duplicate business entries
+ * - Managing session storage for page persistence
+ * - For previous and next button
+ */
 export class BangorBusinessesComponent {
-  business_list: any &#x3D; [];
-  page: number &#x3D; 1;
-  cityId: string &#x3D; &#x27;c_ban&#x27;;
-  filteredPlaces: any[] &#x3D; [];
-  
-  // Filters
-  selectedType: string &#x3D; &#x27;all&#x27;;
-  selectedMeal: string &#x3D; &#x27;all&#x27;;
+  // Lists
+  /** List of all businesses before filtering */
+  business_list: any &#x3D; []; 
+  /** List of businesses after applying filters and sorting */
+  filteredPlaces: any[] &#x3D; []; 
+
+  //cityId: string &#x3D; &#x27;c_ban&#x27;; // Old code 
+  /** MongoDB ID for Bangor city */
+  cityId: string &#x3D; &#x27;67267637aeb441ea7afa1bd0&#x27;;
+
+  // Pagination
+  /** Current page number, starting from 1 */
+  page: number &#x3D; 1; // Current page starting from 1
+  totalPages: number &#x3D; 1; // Total numbebr of available pages
+
+  // Filters and sort
+  /** Selected business type filter, defaults to show all types */
+  selectedType: string &#x3D; &#x27;all&#x27;; 
+  /** Selected meal type filter */
+  selectedMeal: string &#x3D; &#x27;all&#x27;; 
+  /** Minimum rating filter, defaults to show all ratings */
   minRating: number &#x3D; 0;
-  sortBy: string &#x3D; &#x27;name&#x27;;
+  /** Current sort field, defaults to business name */
+  sortBy: string &#x3D; &#x27;name&#x27;; 
+  /** Sort direction, ascending or descending, default to ascending */
   sortDirection: &#x27;asc&#x27; | &#x27;desc&#x27; &#x3D; &#x27;asc&#x27;;
 
-  constructor(public dataService: DataService) { }
+  /**
+   * Creates BangorBusinessesComponent
+   * @param dataService for handling imported JSON data
+   * @param webService for making API calls (connecting to backend)
+   */
+  constructor(public dataService: DataService, private webService: WebService) {}
 
+  /**
+   * Runs on component
+   * Restores page number from session storage if available
+   * Fetches initial data
+   */
+  ngOnInit() {
+    if (sessionStorage[&#x27;page&#x27;]) { // Checks 
+      this.page &#x3D; Number(sessionStorage[&#x27;page&#x27;]); // Saves the page if it refreshes
+      console.log(&#x60;restored page ${this.page} from session storage&#x60;); // For debugging
+    }
+    this.fetchPlaces(); // Initial data fetch
+  }
+  
+  // To get the business data
+  /**
+   * Fetches businesses based on current filters and pagination
+   * Updates filteredPlaces array with the results
+   */
+  fetchPlaces() {
+    const filters &#x3D; { // Assigning filters for api request
+      type: this.selectedType,
+      selectedMeal: this.selectedMeal,
+      min_rating: this.minRating,
+      sortBy: this.sortBy,
+      sortDirection: this.sortDirection
+    };
+    console.log(&#x27;loading places with filters:&#x27;, filters); // For debugging
+  
+    // Api request 
+    this.webService.getPlaces(this.cityId, this.page, filters).subscribe({ // With city id, current page number and filter settings
+      next: (response: any) &#x3D;&gt; { // Handles api response
+        console.log(&#x27;api response:&#x27;, response); 
+  
+        if (response &amp;&amp; response.places) { // If response contains businesses (places) data
+          // Removes duplicates by info.name and update list with filter
+          const uniquePlaces &#x3D; this.removeDuplicatePlacesByName(response.places); // Assigns the list to a function to remove duplicated data
+          this.filteredPlaces &#x3D; uniquePlaces; // Updates the displayed business list
+
+          // Pagination
+          if (response.pagination) { // Checks if pagination value exists
+            this.page &#x3D; response.pagination?.current_page; // Updates current page number
+            this.totalPages &#x3D; response.pagination?.total_pages; // Updates total available pages
+          } else {
+            this.totalPages &#x3D; 1; // If doesnt exists, takes 1 
+          }
+          console.log(&#x60;Page ${this.page} of ${this.totalPages}&#x60;);
+
+        } else { // If error occurs
+          console.error(&#x27;inivalid response format:&#x27;, response); 
+          this.filteredPlaces &#x3D; []; // 
+          this.totalPages &#x3D; 1; // 
+        }
+
+      },
+      error: (error: any) &#x3D;&gt; { // Handles api request error
+        console.error(&#x27;error loading places:&#x27;, error);
+        this.filteredPlaces &#x3D; []; //
+        this.totalPages &#x3D; 1; //
+      }
+    });
+  }
+
+  // Removes duplicated places by name
+  /**
+   * Removes duplicate businesses based on name
+   * @param places array of place to remove duplicated 
+   * @returns array of none duplicated
+   */
+  removeDuplicatePlacesByName(places: any[]): any[] { // Takes array of places and returns new array without duplicated businesses
+    const uniquePlaces: any[] &#x3D; []; // To store businesses
+    const seenNames &#x3D; new Set&lt;string&gt;(); // To track names that are duplicated
+  
+    places.forEach(place &#x3D;&gt; { // For each place in places 
+      const placeName &#x3D; place?.info?.name?.trim().toLowerCase(); // Remove whitespace and convert to lowercase
+      if (placeName &amp;&amp; !seenNames.has(placeName)) {
+        seenNames.add(placeName); // Add duplicate name to seenNames (removes any duplication)
+        uniquePlaces.push(place); // Adds business to list to be used
+      }
+    });
+    
+    console.log(&#x60;removed ${places.length - uniquePlaces.length} duplicates&#x60;);
+    return uniquePlaces; // Return the list without duplicates
+  }
+
+  // Applies all current filters and sorting 
+  /**
+   * Applies all current filters and sorting criteria to the places array
+   * Filters by business type, minimum rating, and meal options
+   * Sorts results by either name or rating in ascending/descending order
+   * @param places array of places to filter and sort
+   */
+  applyFiltersAndSort(places: any[]) {
+    console.log(&#x27;starting filtering with places:&#x27;, places.length);
+
+    // Apply filters
+    this.filteredPlaces &#x3D; places.filter((place: any) &#x3D;&gt; {
+      const typeMatch &#x3D; this.selectedType &#x3D;&#x3D;&#x3D; &#x27;all&#x27; ||
+                     place?.info?.type?.includes(this.selectedType); // Check if type matches selected type
+      const ratingMatch &#x3D; (place?.ratings?.average_rating || 0) &gt;&#x3D; this.minRating; // Check if ratting meets minimum rating
+      const mealMatch &#x3D; this.selectedMeal &#x3D;&#x3D;&#x3D; &#x27;all&#x27; || 
+                     place?.service_options?.meals?.[this.selectedMeal];
+      
+      return typeMatch &amp;&amp; ratingMatch &amp;&amp; mealMatch;
+    });
+ 
+    // Apply sorting
+    if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;name&#x27;) { // Sort by name if selected
+      this.filteredPlaces.sort((a: any, b: any) &#x3D;&gt; { // By alphabetical
+        const nameA &#x3D; a?.info?.name || &#x27;&#x27;; // Get one business name, if there is none then default to empty string
+        const nameB &#x3D; b?.info?.name || &#x27;&#x27;; // Get another business name, if there is none then default to empty string
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? // Applies selected sort direction
+          nameA.localeCompare(nameB) : 
+          nameB.localeCompare(nameA);
+      });
+    } else if (this.sortBy &#x3D;&#x3D;&#x3D; &#x27;rating&#x27;) { // Sort by rating if selected
+      this.filteredPlaces.sort((a: any, b: any) &#x3D;&gt; {
+        const ratingA &#x3D; a?.ratings?.average_rating || 0; // Get one business rating, if there is none then default to 0
+        const ratingB &#x3D; b?.ratings?.average_rating || 0; // Get another business rating, if there is none then default to 0
+        const comparison &#x3D; ratingA - ratingB; // Calculate rating difference 
+        return this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? comparison : -comparison; // Apply selected sort direction
+      });
+    }
+
+    console.log(&#x27;after filtering and sorting:&#x27;, this.filteredPlaces.length);
+  }
+
+  // Update filters and refreshes data
+  /**
+   * Updates filters and refreshes the business list
+   * Resets to first page when filters change
+   */
+  updateFilter() {
+    this.page &#x3D; 1; // Reset to first page when filters change 
+    sessionStorage[&#x27;page&#x27;] &#x3D; this.page; // Save page number to session storage
+    this.fetchPlaces(); // Fetch new data with updated filters
+  }
+
+  // Update sort criteria and refreshes data
+  /**
+   * Updates sort cirteria and refreshes the business list
+   * @param sortBy sortBy Field to sort by name or rating
+   */
+  updateSort(sortBy: string) {
+    if (this.sortBy &#x3D;&#x3D;&#x3D; sortBy) { // If sort button is clicked again
+      this.sortDirection &#x3D; this.sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;desc&#x27; : &#x27;asc&#x27;; // Toggle sort
+    } else {
+      this.sortBy &#x3D; sortBy; // Update sort field
+      this.sortDirection &#x3D; &#x27;asc&#x27;; // Default is ascending
+    }
+    this.fetchPlaces(); // Fetch new data with sorting
+  }
+
+  // Previous button functionality
+  /**
+   * Navigates to previous page if available
+   */
+  previousPage() { 
+    if (this.page &gt; 1) { // Check if not on first page
+      this.page--; // Decrements page number
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page; // Save new page 
+      this.fetchPlaces(); 
+    }
+  }
+
+  // Next button functionality
+  /**
+   * Navigates to next page if available
+   */
+  nextPage() { 
+    if (this.page &lt; this.totalPages) { // Check if not on last page
+      this.page++; // Increment page number
+      sessionStorage[&#x27;page&#x27;] &#x3D; this.page; // Save new page to session storage
+      this.fetchPlaces();
+    }
+  }
+}
+
+
+
+  /* Old code for data.service
   ngOnInit() {
     if (sessionStorage[&#x27;page&#x27;]) {
       this.page &#x3D; Number(sessionStorage[&#x27;page&#x27;]); 
@@ -1017,7 +1535,6 @@ export class BangorBusinessesComponent {
   }
 }
 
-/*
 styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in their own folder
 */</code></pre>
     </div>
@@ -1028,12 +1545,14 @@ styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in 
 &lt;/h1&gt;
 
 &lt;div class&#x3D;&quot;container&quot;&gt;
+
     &lt;!-- Filtered info --&gt;
     &lt;div&gt;
         &lt;p&gt;Number of filtered places: {{filteredPlaces?.length}}&lt;/p&gt;
         &lt;p&gt;First place name: {{filteredPlaces[0]?.info?.name}}&lt;/p&gt;
     &lt;/div&gt;
-    &lt;!-- Filter Controls --&gt;
+
+    &lt;!-- Filter options --&gt;
     &lt;div class&#x3D;&quot;row mb-4&quot;&gt;
         &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
             &lt;select class&#x3D;&quot;form-select&quot; #typeSelect (change)&#x3D;&quot;selectedType &#x3D; typeSelect.value; updateFilter()&quot;&gt;
@@ -1050,7 +1569,6 @@ styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in 
                 &lt;option value&#x3D;&quot;brunch&quot;&gt;Brunch&lt;/option&gt;
                 &lt;option value&#x3D;&quot;lunch&quot;&gt;Lunch&lt;/option&gt;
                 &lt;option value&#x3D;&quot;dinner&quot;&gt;Dinner&lt;/option&gt;
-                
             &lt;/select&gt;
         &lt;/div&gt;
         &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
@@ -1063,22 +1581,28 @@ styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in 
         &lt;/div&gt;
         &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
             &lt;button class&#x3D;&quot;btn btn-secondary me-2&quot; (click)&#x3D;&quot;updateSort(&#x27;name&#x27;)&quot;&gt;
-                Sort by Name
+                Sort by Name 
+                &lt;span *ngIf&#x3D;&quot;sortBy &#x3D;&#x3D;&#x3D; &#x27;name&#x27;&quot;&gt;
+                    ({{sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;↑&#x27; : &#x27;↓&#x27;}})
+                &lt;/span&gt;
             &lt;/button&gt;
             &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;updateSort(&#x27;rating&#x27;)&quot;&gt;
                 Sort by Rating
+                &lt;span *ngIf&#x3D;&quot;sortBy &#x3D;&#x3D;&#x3D; &#x27;rating&#x27;&quot;&gt;
+                    ({{sortDirection &#x3D;&#x3D;&#x3D; &#x27;asc&#x27; ? &#x27;↑&#x27; : &#x27;↓&#x27;}})
+                &lt;/span&gt;
             &lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;!-- Business Cards --&gt;
+    &lt;!-- Business cards --&gt;
     &lt;div class&#x3D;&quot;row&quot;&gt;
         &lt;div class&#x3D;&quot;col-sm-14&quot;&gt;
             @if (filteredPlaces &amp;&amp; filteredPlaces.length &gt; 0) {
-                @for (place of filteredPlaces; track place._id.$oid) {
+                @for (place of filteredPlaces; track place._id) {
                     &lt;div class&#x3D;&quot;card text-white bg-primary mb-4&quot;
                          style&#x3D;&quot;cursor: pointer&quot; 
-                         [routerLink]&#x3D;&quot;[&#x27;/armaghBusinesses&#x27;, place._id.$oid]&quot;&gt;
+                         [routerLink]&#x3D;&quot;[&#x27;/bangorBusinesses&#x27;, place._id]&quot;&gt;
                         &lt;div class&#x3D;&quot;card-header&quot;&gt;
                             {{ place.info?.name }}
                         &lt;/div&gt;
@@ -1101,15 +1625,24 @@ styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in 
     &lt;!-- Pagination --&gt;
     &lt;div class&#x3D;&quot;row&quot;&gt; 
         &lt;div class&#x3D;&quot;col-sm-4&quot;&gt; 
-            &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;previousPage()&quot;&gt;Previous&lt;/button&gt; 
+            &lt;button class&#x3D;&quot;btn btn-primary&quot; 
+                    (click)&#x3D;&quot;previousPage()&quot;
+                    [disabled]&#x3D;&quot;page &lt;&#x3D; 1&quot;&gt;
+                Previous
+            &lt;/button&gt; 
         &lt;/div&gt; 
         &lt;div class&#x3D;&quot;col-sm-4 text-center&quot;&gt;
-            Page {{ page }} of {{ dataService.getLastPageNumber() }}
+            Page {{ page }} of {{ totalPages }}
         &lt;/div&gt;
         &lt;div class&#x3D;&quot;col-sm-4 text-end&quot;&gt; 
-            &lt;button class&#x3D;&quot;btn btn-primary&quot; (click)&#x3D;&quot;nextPage()&quot;&gt;Next&lt;/button&gt; 
+            &lt;button class&#x3D;&quot;btn btn-primary&quot; 
+                    (click)&#x3D;&quot;nextPage()&quot;
+                    [disabled]&#x3D;&quot;page &gt;&#x3D; totalPages&quot;&gt;
+                Next
+            &lt;/button&gt; 
         &lt;/div&gt; 
-    &lt;/div&gt; 
+    &lt;/div&gt;
+    
 &lt;/div&gt;
 
 </code></pre>
@@ -1147,7 +1680,7 @@ styleUrl to styleUrls [&#x27;...&#x27;] to fix error after putting each city in 
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1>    Bangor food places</h1><div class="container">    <!-- Filtered info -->    <div>        <p>Number of filtered places: {{filteredPlaces?.length}}</p>        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>    </div>    <!-- Filter Controls -->    <div class="row mb-4">        <div class="col-md-3">            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">                <option value="all">All Types</option>                <option value="breakfast_restaurant">Breakfast Restaurant</option>                <option value="coffee_shop">Coffee Shop</option>                <option value="cafe">Cafe</option>            </select>        </div>        <div class="col-md-3">            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">                <option value="all">All Meals</option>                <option value="breakfast">Breakfast</option>                <option value="brunch">Brunch</option>                <option value="lunch">Lunch</option>                <option value="dinner">Dinner</option>                            </select>        </div>        <div class="col-md-3">            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">                <option value="0">All Ratings</option>                <option value="3">3+ Stars</option>                <option value="4">4+ Stars</option>                <option value="4.5">4.5+ Stars</option>            </select>        </div>        <div class="col-md-3">            <button class="btn btn-secondary me-2" (click)="updateSort(\'name\')">                Sort by Name            </button>            <button class="btn btn-secondary" (click)="updateSort(\'rating\')">                Sort by Rating            </button>        </div>    </div>    <!-- Business Cards -->    <div class="row">        <div class="col-sm-14">            @if (filteredPlaces && filteredPlaces.length > 0) {                @for (place of filteredPlaces; track place._id.$oid) {                    <div class="card text-white bg-primary mb-4"                         style="cursor: pointer"                          [routerLink]="[\'/armaghBusinesses\', place._id.$oid]">                        <div class="card-header">                            {{ place.info?.name }}                        </div>                        <div class="card-body">                            This business is based in {{ place.location?.address?.city }}                        </div>                        <div class="card-footer">                            Rating: {{ place.ratings?.average_rating }}                        </div>                    </div>                }            } @else {                <div class="alert alert-info">                    No places found matching the current filters                </div>            }        </div>    </div>    <!-- Pagination -->    <div class="row">         <div class="col-sm-4">             <button class="btn btn-primary" (click)="previousPage()">Previous</button>         </div>         <div class="col-sm-4 text-center">            Page {{ page }} of {{ dataService.getLastPageNumber() }}        </div>        <div class="col-sm-4 text-end">             <button class="btn btn-primary" (click)="nextPage()">Next</button>         </div>     </div> </div></div>'
+        var COMPONENT_TEMPLATE = '<div><h1>    Bangor food places</h1><div class="container">    <!-- Filtered info -->    <div>        <p>Number of filtered places: {{filteredPlaces?.length}}</p>        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>    </div>    <!-- Filter options -->    <div class="row mb-4">        <div class="col-md-3">            <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">                <option value="all">All Types</option>                <option value="breakfast_restaurant">Breakfast Restaurant</option>                <option value="coffee_shop">Coffee Shop</option>                <option value="cafe">Cafe</option>            </select>        </div>        <div class="col-md-3">            <select class="form-select" #mealSelect (change)="selectedMeal = mealSelect.value; updateFilter()">                <option value="all">All Meals</option>                <option value="breakfast">Breakfast</option>                <option value="brunch">Brunch</option>                <option value="lunch">Lunch</option>                <option value="dinner">Dinner</option>            </select>        </div>        <div class="col-md-3">            <select class="form-select" #ratingSelect (change)="minRating = +ratingSelect.value; updateFilter()">                <option value="0">All Ratings</option>                <option value="3">3+ Stars</option>                <option value="4">4+ Stars</option>                <option value="4.5">4.5+ Stars</option>            </select>        </div>        <div class="col-md-3">            <button class="btn btn-secondary me-2" (click)="updateSort(\'name\')">                Sort by Name                 <span *ngIf="sortBy === \'name\'">                    ({{sortDirection === \'asc\' ? \'↑\' : \'↓\'}})                </span>            </button>            <button class="btn btn-secondary" (click)="updateSort(\'rating\')">                Sort by Rating                <span *ngIf="sortBy === \'rating\'">                    ({{sortDirection === \'asc\' ? \'↑\' : \'↓\'}})                </span>            </button>        </div>    </div>    <!-- Business cards -->    <div class="row">        <div class="col-sm-14">            @if (filteredPlaces && filteredPlaces.length > 0) {                @for (place of filteredPlaces; track place._id) {                    <div class="card text-white bg-primary mb-4"                         style="cursor: pointer"                          [routerLink]="[\'/bangorBusinesses\', place._id]">                        <div class="card-header">                            {{ place.info?.name }}                        </div>                        <div class="card-body">                            This business is based in {{ place.location?.address?.city }}                        </div>                        <div class="card-footer">                            Rating: {{ place.ratings?.average_rating }}                        </div>                    </div>                }            } @else {                <div class="alert alert-info">                    No places found matching the current filters                </div>            }        </div>    </div>    <!-- Pagination -->    <div class="row">         <div class="col-sm-4">             <button class="btn btn-primary"                     (click)="previousPage()"                    [disabled]="page <= 1">                Previous            </button>         </div>         <div class="col-sm-4 text-center">            Page {{ page }} of {{ totalPages }}        </div>        <div class="col-sm-4 text-end">             <button class="btn btn-primary"                     (click)="nextPage()"                    [disabled]="page >= totalPages">                Next            </button>         </div>     </div>    </div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArmaghBusinessesComponent', 'selector': 'armaghBusinesses'},{'name': 'AuthButtonComponent', 'selector': 'auth-button'},{'name': 'AuthUserComponent', 'selector': 'user-profile'},{'name': 'BangorBusinessesComponent', 'selector': 'bangorBusinesses'},{'name': 'BelfastBusinessesComponent', 'selector': 'belfastBusinesses'},{'name': 'BusinessComponent', 'selector': 'business'},{'name': 'DerryBusinessesComponent', 'selector': 'derryBusinesses'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'LisburnBusinessesComponent', 'selector': 'lisburnBusinesses'},{'name': 'NavComponent', 'selector': 'navigation'},{'name': 'NewryBusinessesComponent', 'selector': 'newryBusinesses'},{'name': 'TestWSComponent', 'selector': 'testWS'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'BangorBusinessesComponent'};

@@ -26,6 +26,7 @@
     "@auth0/auth0-angular": "^2.2.3",
     "@compodoc/compodoc": "^1.1.26",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "express": "^4.18.2",
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",

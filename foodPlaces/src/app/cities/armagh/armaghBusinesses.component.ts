@@ -155,20 +155,51 @@ export class ArmaghBusinessesComponent {
     this.fetchPlaces();
   }
 
+  // Previous button functionality
+  /**
+   * Navigates to previous page if available
+   */
   previousPage() { 
-    if (this.page > 1) {
-      this.page--;
-      sessionStorage['page'] = this.page;
+    if (this.page > 1) { // If not on first page
+      this.page--; // Decrements page number
+      sessionStorage['page'] = this.page; // Save new page
       this.fetchPlaces();
     }
   }
 
+  // Next button functionality
+  /**
+   * Navigates to next page if available
+   */
   nextPage() { 
-    if (this.page < this.totalPages) {
-      this.page++;
-      sessionStorage['page'] = this.page;
+    if (this.page < this.totalPages) { // If not on last page
+      this.page++; // Increment page number
+      sessionStorage['page'] = this.page; // Save new page to session storage
       this.fetchPlaces();
     }
+  }
+
+  /**
+   * Get the current day
+   * @returns string e.g. monday etc
+   * For example if function is called then it will return the current day 
+   */
+  getCurrentDay(): string {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    return days[new Date().getDay()];
+  }
+
+  /**
+   * Check if a business is open based on business_hours information
+   * 
+   * @param hours 
+   * @returns 
+   */
+  isCurrentlyOpen(hours: any): boolean {
+    const now = new Date();
+    const currentTime = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
+    const dayHours = hours?.[this.getCurrentDay()];
+    return currentTime >= dayHours?.open && currentTime <= dayHours?.close;
   }
 } 
   /* dataservice

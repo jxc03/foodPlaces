@@ -181,7 +181,7 @@ export class ArmaghBusinessesComponent {
 
   /**
    * Get the current day
-   * @returns string e.g. monday etc
+   * @returns {string} e.g. monday etc
    * For example if function is called then it will return the current day 
    */
   getCurrentDay(): string {
@@ -189,13 +189,34 @@ export class ArmaghBusinessesComponent {
     return days[new Date().getDay()];
   }
 
+  isCurrentlyOpen(hours: any): boolean {
+    if (!hours) return false; // Early return for invalid hours
+  
+    const now = new Date();
+    const currentDay = this.getCurrentDay();
+    const dayHours = hours[currentDay];
+  
+    if (!dayHours) return false; // Early return if no hours are set for the current day
+  
+    const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes(); // Convert current time to minutes
+    const openTimeInMinutes = this.convertToMinutes(dayHours.open);
+    const closeTimeInMinutes = this.convertToMinutes(dayHours.close);
+  
+    return currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes <= closeTimeInMinutes;
+  }
+  
+  private convertToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes; // Convert HH:mm to total minutes
+  }
+
   /**
    * Check if a business is open based on business_hours information
    * 
-   * @param hours 
-   * @returns 
+   * @param {Object} hours contains the opening and closing hours
+   * @returns {boolean} true if current time is iwthin open hours othewise false
    */
-  isCurrentlyOpen(hours: any): boolean {
+  isCurrentlyOpenOri(hours: any): boolean {
     const now = new Date();
     const currentTime = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
     const dayHours = hours?.[this.getCurrentDay()];

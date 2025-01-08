@@ -1,21 +1,17 @@
-<h1>
-    Lisburn food places
-</h1>
+<div class="container py-4">
+    <h1 class="text-center mb-4">Lisburn Food Places</h1>
 
-<div class="container">
-    <!-- Filtered info -->
-    <div>
-        <p>Number of filtered places: {{filteredPlaces?.length}}</p>
-        <p>First place name: {{filteredPlaces[0]?.info?.name}}</p>
-    </div>
-    <!-- Filter Controls -->
+    <!-- Filter options -->
     <div class="row mb-4">
         <div class="col-md-3">
             <select class="form-select" #typeSelect (change)="selectedType = typeSelect.value; updateFilter()">
                 <option value="all">All Types</option>
-                <option value="breakfast_restaurant">Breakfast Restaurant</option>
-                <option value="coffee_shop">Coffee Shop</option>
+                <option value="bar">Bar</option>
                 <option value="cafe">Cafe</option>
+                <option value="fast_food_restaurant">Fast Food</option>
+                <option value="restaurant">Restaurant</option>
+                <option value="meal_takeaway">Takeaway</option>
+                
             </select>
         </div>
         <div class="col-md-3">
@@ -35,54 +31,110 @@
                 <option value="4.5">4.5+ Stars</option>
             </select>
         </div>
-        <div class="col-md-3">
-            <button class="btn btn-secondary me-2" (click)="updateSort('name')">
-                Sort by Name
+        <div class="col-md-3 d-flex gap-2">
+            <button class="btn btn-outline-primary flex-grow-1" (click)="updateSort('name')">
+                Name 
+                <span *ngIf="sortBy === 'name'">
+                    ({{sortDirection === 'asc' ? '↑' : '↓'}})
+                </span>
             </button>
-            <button class="btn btn-secondary" (click)="updateSort('rating')">
-                Sort by Rating
+            <button class="btn btn-outline-primary flex-grow-1" (click)="updateSort('rating')">
+                Rating
+                <span *ngIf="sortBy === 'rating'">
+                    ({{sortDirection === 'asc' ? '↑' : '↓'}})
+                </span>
             </button>
         </div>
     </div>
-
-    <!-- Business Cards -->
-    <div class="row">
-        <div class="col-sm-14">
-            @if (filteredPlaces && filteredPlaces.length > 0) {
-                @for (place of filteredPlaces; track place._id.$oid) {
-                    <div class="card text-white bg-primary mb-4"
+    
+    <!-- Business cards -->
+    <div class="row g-4">
+        @if (filteredPlaces && filteredPlaces.length > 0) {
+            @for (place of filteredPlaces; track place._id) {
+                <div class="col-md-6">
+                    <div class="card h-100 hover:shadow-lg transition-shadow"
                          style="cursor: pointer" 
-                         [routerLink]="['/armaghBusinesses', place._id.$oid]">
-                        <div class="card-header">
-                            {{ place.info?.name }}
-                        </div>
+                         [routerLink]="['/armaghBusinesses', place._id]">
                         <div class="card-body">
-                            This business is based in {{ place.location?.address?.city }}
-                        </div>
-                        <div class="card-footer">
-                            Rating: {{ place.ratings?.average_rating }}
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="card-title mb-1">{{place.info?.name}}</h5>
+                                    <p class="text-muted small mb-0">{{place.location?.address?.full_address}}</p>
+                                </div>
+                                <div class="d-flex align-items-center gap-1">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <span class="fw-bold">{{place.ratings?.average_rating}}</span>
+                                    <span class="text-muted small">({{place.ratings?.review_count}})</span>
+                                </div>
+                            </div>
+
+                            <!-- Types badges -->
+                            <div class="mb-3">
+                                @for (type of place.info?.type; track type) {
+                                    <span class="badge bg-light text-dark me-1">
+                                        {{type.replaceAll('_', ' ') | titlecase}}
+                                    </span>
+                                }
+                            </div>
+
+                            <!-- Amenities -->
+                            <div class="row g-2 mb-3">
+                                <div class="col-auto">
+                                    <span class="d-flex align-items-center gap-1 text-muted small">
+                                        <i class="bi bi-p-circle-fill" [ngClass]="place.amenities?.facilities?.parking ? 'text-primary' : 'text-danger'"></i>
+                                        Parking
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="d-flex align-items-center gap-1 text-muted small">
+                                        <i class="bi bi-badge-wc-fill" [ngClass]="place.amenities?.facilities?.restrooms ? 'text-primary' : 'text-danger'"></i>
+                                        Restrooms
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="d-flex align-items-center gap-1 text-muted small">
+                                        <i class="bi bi-person-wheelchair" [ngClass]="place.amenities?.accessibility?.wheelchair_access ? 'text-primary' : 'text-danger'"></i>
+                                        Accessible
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Business hours -->
+                            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                                <span class="text-muted small">
+                                    <i class="bi bi-clock-fill" [ngClass]="isCurrentlyOpen(place.business_hours) ? 'text-primary' : 'text-danger'"></i>
+                                    Open today: {{place.business_hours?.[getCurrentDay()]?.open}} - {{place.business_hours?.[getCurrentDay()]?.close}}
+                                </span>
+                                <button class="btn btn-sm btn-outline-primary">View Details</button>
+                            </div>
                         </div>
                     </div>
-                }
-            } @else {
+                </div>
+            }
+        } @else {
+            <div class="col">
                 <div class="alert alert-info">
                     No places found matching the current filters
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 
     <!-- Pagination -->
-    <div class="row"> 
-        <div class="col-sm-4"> 
-            <button class="btn btn-primary" (click)="previousPage()">Previous</button> 
-        </div> 
-        <div class="col-sm-4 text-center">
-            Page {{ page }} of {{ dataService.getLastPageNumber() }}
-        </div>
-        <div class="col-sm-4 text-end"> 
-            <button class="btn btn-primary" (click)="nextPage()">Next</button> 
-        </div> 
+    <div class="d-flex justify-content-between align-items-center mt-4"> 
+        <button class="btn btn-outline-primary" 
+                (click)="previousPage()"
+                [disabled]="page <= 1">
+            <i class="bi bi-chevron-left"></i> Previous
+        </button> 
+        <span class="text-muted">
+            Page {{ page }} of {{ totalPages }}
+        </span>
+        <button class="btn btn-outline-primary" 
+                (click)="nextPage()"
+                [disabled]="page >= totalPages">
+            Next <i class="bi bi-chevron-right"></i>
+        </button> 
     </div> 
 </div>
 

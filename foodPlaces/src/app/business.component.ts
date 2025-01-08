@@ -6,12 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms'; 
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AuthService } from '@auth0/auth0-angular';
+import { WebService } from './web.service';
 
 @Component({ 
     selector: 'business', 
     standalone: true, 
     imports: [RouterOutlet, RouterModule, CommonModule, ReactiveFormsModule, GoogleMapsModule], 
-    providers: [DataService], 
+    providers: [DataService, WebService], 
     templateUrl: './business.component.html', 
     styleUrl: './business.component.css' 
 }) 

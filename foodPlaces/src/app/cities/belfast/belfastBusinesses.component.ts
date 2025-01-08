@@ -1,19 +1,37 @@
+/**
+ * Code file to display all the businesses from JSON data or API for Belfast
+ */
+
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { DataService } from '../../data.service';
+//import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WebService } from '../../web.service';
 
+/**
+ * Component that handles the display and management of Belfast business listings
+ * Provides filtering, sorting, and pagination functionality for business data
+ */
 @Component({
   selector: 'belfastBusinesses',
   imports: [RouterOutlet, RouterModule, CommonModule, FormsModule],
-  providers: [DataService, WebService],
+  providers: [/*DataService*/ WebService],
   templateUrl: './belfastBusinesses.component.html',
   styleUrls: ['./belfastBusinesses.component.css']
 })
 
-
+/**
+ * Component that manages the display of businesses in Belfast
+ * Provides functionality for:
+ * - Displaying a paginated list of businesses
+ * - Filtering businesses by type, meal options, and minimum rating
+ * - Sorting businesses by name or rating
+ * - Removing duplicate business entries
+ * - Managing session storage for page persistence
+ * - For previous and next button
+ * - Checking if a business is open right now or not
+ */
 export class BelfastBusinessesComponent {
   // Lists
   /** List of all businesses before filtering */
@@ -21,8 +39,7 @@ export class BelfastBusinessesComponent {
   /** List of businesses after applying filters and sorting */
   filteredPlaces: any[] = []; 
 
-  //cityId: string = 'c_ban'; // Old code 
-  /** MongoDB ID for Bangor city */
+  /** MongoDB ID for Belfast city */
   cityId: string = '67267637aeb441ea7afa21da';
 
   // Pagination
@@ -47,7 +64,7 @@ export class BelfastBusinessesComponent {
    * @param dataService for handling imported JSON data
    * @param webService for making API calls (connecting to backend)
    */
-  constructor(public dataService: DataService, private webService: WebService) {}
+  constructor(/*public dataService: DataService,*/ private webService: WebService) {}
 
   /**
    * Runs on component
@@ -62,7 +79,6 @@ export class BelfastBusinessesComponent {
     this.fetchPlaces(); // Initial data fetch
   }
   
-  // To get the business data
   /**
    * Fetches businesses based on current filters and pagination
    * Updates filteredPlaces array with the results
@@ -111,9 +127,9 @@ export class BelfastBusinessesComponent {
     });
   }
 
-  // Removes duplicated places by name
   /**
    * Removes duplicate businesses based on name
+   * Checks the name of each place after triming and converting to lowercase
    * @param places array of place to remove duplicated 
    * @returns array of none duplicated
    */
@@ -133,7 +149,6 @@ export class BelfastBusinessesComponent {
     return uniquePlaces; // Return the list without duplicates
   }
 
-  // Applies all current filters and sorting 
   /**
    * Applies all current filters and sorting criteria to the places array
    * Filters by business type, minimum rating, and meal options
@@ -146,10 +161,10 @@ export class BelfastBusinessesComponent {
     // Apply filters
     this.filteredPlaces = places.filter((place: any) => {
       const typeMatch = this.selectedType === 'all' ||
-                     place?.info?.type?.includes(this.selectedType); // Check if type matches selected type
+                        place?.info?.type?.includes(this.selectedType); // Check if type matches selected type
       const ratingMatch = (place?.ratings?.average_rating || 0) >= this.minRating; // Check if ratting meets minimum rating
       const mealMatch = this.selectedMeal === 'all' || 
-                     place?.service_options?.meals?.[this.selectedMeal];
+                        place?.service_options?.meals?.[this.selectedMeal];
       
       return typeMatch && ratingMatch && mealMatch;
     });
@@ -175,7 +190,6 @@ export class BelfastBusinessesComponent {
     console.log('after filtering and sorting:', this.filteredPlaces.length);
   }
 
-  // Update filters and refreshes data
   /**
    * Updates filters and refreshes the business list
    * Resets to first page when filters change
@@ -186,7 +200,6 @@ export class BelfastBusinessesComponent {
     this.fetchPlaces(); // Fetch new data with updated filters
   }
 
-  // Update sort criteria and refreshes data
   /**
    * Updates sort cirteria and refreshes the business list
    * @param sortBy sortBy Field to sort by name or rating
@@ -201,7 +214,6 @@ export class BelfastBusinessesComponent {
     this.fetchPlaces(); // Fetch new data with sorting
   }
 
-  // Previous button functionality
   /**
    * Navigates to previous page if available
    */
@@ -213,7 +225,6 @@ export class BelfastBusinessesComponent {
     }
   }
 
-  // Next button functionality
   /**
    * Navigates to next page if available
    */
@@ -224,155 +235,58 @@ export class BelfastBusinessesComponent {
       this.fetchPlaces();
     }
   }
-}
 
-
-  /* Old code for data service
-  ngOnInit() {
-    if (sessionStorage['page']) {
-      this.page = Number(sessionStorage['page']); 
-      
-    }
-
-    // this.business_list = this.dataService.getBusinesses(this.page, this.cityId);
-    this.loading = true;
-
-    this.webService.getBusinesses(this.page, this.cityId).subscribe({
-      next: (data) => {
-        // Make sure data has the expected structure
-        this.business_list = [data]; // No need to wrap in array as API already returns array
-        this.applyFiltersAndSort();
-        console.log('Raw data:', this.business_list);
-        console.log('Places array:', this.business_list?.[0]?.places);
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error fetching businesses:', error);
-        this.loading = false;
-      }
-    });
+  /**
+   * Get the current day
+   * Uses the Date object to determine the current day
+   * @returns {string} e.g. monday etc
+   * For example if function is called then it will return the current day 
+   */
+  getCurrentDay(): string {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']; // Array of days
+    const currentDayIndex = new Date().getDay(); // Get the current day index (0 = Sunday, 1 = Monday... etc) 
+    return days[currentDayIndex]; // Use the index to fetch the corresponding day name from the array
   }
 
-    //this.applyFiltersAndSort();
-    //console.log('Raw data:', this.business_list);
-    //console.log('Places array:', this.business_list?.places);
-  //}
+  /**
+   * Check if a business is open based on business_hours information
+   * @param {Object} hours contains the opening and closing hours
+   * @returns {boolean} true if current time is wthin open hours otherwise false
+   */
+  isCurrentlyOpen(hours: any): boolean {
+    // Return false for invalid hours
+    if (!hours) return false; // If no hours then return false
 
-  applyFiltersAndSort() {
-    console.log('Starting applyFiltersAndSort');
-    console.log('Current business_list:', this.business_list);
+    // Get the current date and time
+    const now = new Date(); // Assigning current date and time to now 
 
-    if (!this.business_list?.[0]?.places) {
-      console.log('No business_list or places found');
-      this.filteredPlaces = [];
-      return;
-    }
+    // Get the current day as a lowercase string
+    const currentDay = this.getCurrentDay(); // Uses the getCurrentDay function and assigns it to currentDay
 
-    // Since business_list is an array and places is inside the first object
-    //let places = [...this.business_list[0].places];
-    //console.log('Initial places:', places);
+    // Fetch the hours for the current day
+    const dayHours = hours[currentDay]; 
+
+    // Return false if no hours are set for the current day
+    if (!dayHours) return false; 
     
-  let places = [...(this.business_list[0].places || [])];
+     // Convert current time to minutes
+    const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // Convert opening and closing times to total minutes
+    const openTimeInMinutes = this.convertToMinutes(dayHours.open);
+    const closeTimeInMinutes = this.convertToMinutes(dayHours.close);
+    
+    // Check if the current time falls within the open and close times
+    return currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes <= closeTimeInMinutes;
+  }
   
-  places = places.filter((place: any) => {
-    const typeMatch = this.selectedType === 'all' || 
-                   (place?.info?.type || []).includes(this.selectedType);
-    const ratingMatch = (place?.ratings?.average_rating || 0) >= this.minRating;
-    const mealMatch = this.selectedMeal === 'all' || 
-                   place?.service_options?.meals?.[this.selectedMeal] === true;
-    
-    return typeMatch && ratingMatch && mealMatch;
-  });
-
-  console.log('Filtered places:', places);
-
-    // Apply sorting
-  places.sort((a: any, b: any) => {
-    let compareValue = 0;
-    if (this.sortBy === 'name') {
-      compareValue = (a?.info?.name || '').localeCompare(b?.info?.name || '');
-    } else if (this.sortBy === 'rating') {
-      const ratingA = a?.ratings?.average_rating || 0;
-      const ratingB = b?.ratings?.average_rating || 0;
-      compareValue = ratingB - ratingA;
-    }
-    return this.sortDirection === 'asc' ? compareValue : -compareValue;
-  });
-  console.log('Sorted places:', places);
-  this.filteredPlaces = places;
+  /**
+   * Converts the time
+   * @param time A string representing time in hmm:mm format (e.g. 14:30)
+   * @returns {number} the total number of minutes since midnight
+   */
+  private convertToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number); // Split the time string into hours and minutes and convert them to numbers
+    return hours * 60 + minutes; // Convert hh:mm to total minutes
   }
-
-  updateFilter() {
-    this.applyFiltersAndSort();
-  }
-
-  updateSort(sortBy: string) {
-    if (this.sortBy === sortBy) {
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortBy = sortBy;
-      this.sortDirection = 'asc';
-    }
-    this.applyFiltersAndSort();
-  }
-
-  previousPage() { 
-    if (this.page > 1) {
-      this.page = this.page - 1;
-      sessionStorage['page'] = this.page;
-      
-      this.loading = true;
-      this.webService.getBusinesses(this.page, this.cityId).subscribe({
-        next: (data) => {
-          this.business_list = data;
-          this.applyFiltersAndSort();
-          this.loading = false;
-        },
-        error: (error) => {
-          console.error('Error fetching businesses:', error);
-          this.loading = false;
-        }
-      });
-    }
-  } 
-    /*
-    if (this.page > 1){
-      this.page = this.page - 1 
-      sessionStorage['page'] = this.page;
-      this.business_list = this.dataService.getBusinesses(this.page, this.cityId);
-      this.applyFiltersAndSort();
-    }
-    */
-
-    /*
-  nextPage() { 
-    if (this.page < this.dataService.getLastPageNumber()) {
-      this.page = this.page + 1;
-      sessionStorage['page'] = this.page;
-      
-      this.loading = true;
-      this.webService.getBusinesses(this.page, this.cityId).subscribe({
-        next: (data) => {
-          this.business_list = data;
-          this.applyFiltersAndSort();
-          this.loading = false;
-        },
-        error: (error) => {
-          console.error('Error fetching businesses:', error);
-          this.loading = false;
-        }
-      });
-    }
-  }
-  /*
-    if (this.page < this.dataService.getLastPageNumber()){
-      this.page = this.page + 1 
-      sessionStorage['page'] = this.page;
-      this.business_list = this.dataService.getBusinesses(this.page, this.cityId);
-      this.applyFiltersAndSort();
-    }
-    */
-
-/*
-styleUrl to styleUrls ['...'] to fix error after putting each city in their own folder
-*/
+}

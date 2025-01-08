@@ -4,7 +4,7 @@
 
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { DataService } from '../../data.service';
+//import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WebService } from '../../web.service';
@@ -16,7 +16,7 @@ import { WebService } from '../../web.service';
 @Component({
   selector: 'bangorBusinesses',
   imports: [RouterOutlet, RouterModule, CommonModule, FormsModule],
-  providers: [DataService, WebService],
+  providers: [/*DataService*/ WebService],
   templateUrl: './bangorBusinesses.component.html',
   styleUrls: ['./bangorBusinesses.component.css']
 })
@@ -30,6 +30,7 @@ import { WebService } from '../../web.service';
  * - Removing duplicate business entries
  * - Managing session storage for page persistence
  * - For previous and next button
+ * - Checking if a business is open right now or not
  */
 export class BangorBusinessesComponent {
   // Lists
@@ -38,7 +39,6 @@ export class BangorBusinessesComponent {
   /** List of businesses after applying filters and sorting */
   filteredPlaces: any[] = []; 
 
-  //cityId: string = 'c_ban'; // Old code 
   /** MongoDB ID for Bangor city */
   cityId: string = '67267637aeb441ea7afa1bd0';
 
@@ -64,7 +64,7 @@ export class BangorBusinessesComponent {
    * @param dataService for handling imported JSON data
    * @param webService for making API calls (connecting to backend)
    */
-  constructor(public dataService: DataService, private webService: WebService) {}
+  constructor(/*public dataService: DataService,*/ private webService: WebService) {}
 
   /**
    * Runs on component
@@ -128,9 +128,9 @@ export class BangorBusinessesComponent {
     });
   }
 
-  // Removes duplicated places by name
   /**
    * Removes duplicate businesses based on name
+   * Checks the name of each place after triming and converting to lowercase
    * @param places array of place to remove duplicated 
    * @returns array of none duplicated
    */
@@ -163,10 +163,10 @@ export class BangorBusinessesComponent {
     // Apply filters
     this.filteredPlaces = places.filter((place: any) => {
       const typeMatch = this.selectedType === 'all' ||
-                     place?.info?.type?.includes(this.selectedType); // Check if type matches selected type
+                        place?.info?.type?.includes(this.selectedType); // Check if type matches selected type
       const ratingMatch = (place?.ratings?.average_rating || 0) >= this.minRating; // Check if ratting meets minimum rating
       const mealMatch = this.selectedMeal === 'all' || 
-                     place?.service_options?.meals?.[this.selectedMeal];
+                        place?.service_options?.meals?.[this.selectedMeal];
       
       return typeMatch && ratingMatch && mealMatch;
     });
@@ -240,6 +240,60 @@ export class BangorBusinessesComponent {
       sessionStorage['page'] = this.page; // Save new page to session storage
       this.fetchPlaces();
     }
+  }
+
+  /**
+   * Get the current day
+   * Uses the Date object to determine the current day
+   * @returns {string} e.g. monday etc
+   * For example if function is called then it will return the current day 
+   */
+  getCurrentDay(): string {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']; // Array of days
+    const currentDayIndex = new Date().getDay(); // Get the current day index (0 = Sunday, 1 = Monday... etc) 
+    return days[currentDayIndex]; // Use the index to fetch the corresponding day name from the array
+  }
+
+  /**
+   * Check if a business is open based on business_hours information
+   * @param {Object} hours contains the opening and closing hours
+   * @returns {boolean} true if current time is wthin open hours otherwise false
+   */
+  isCurrentlyOpen(hours: any): boolean {
+    // Return false for invalid hours
+    if (!hours) return false; // If no hours then return false
+
+    // Get the current date and time
+    const now = new Date(); // Assigning current date and time to now 
+
+    // Get the current day as a lowercase string
+    const currentDay = this.getCurrentDay(); // Uses the getCurrentDay function and assigns it to currentDay
+
+    // Fetch the hours for the current day
+    const dayHours = hours[currentDay]; 
+
+    // Return false if no hours are set for the current day
+    if (!dayHours) return false; 
+    
+     // Convert current time to minutes
+    const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // Convert opening and closing times to total minutes
+    const openTimeInMinutes = this.convertToMinutes(dayHours.open);
+    const closeTimeInMinutes = this.convertToMinutes(dayHours.close);
+    
+    // Check if the current time falls within the open and close times
+    return currentTimeInMinutes >= openTimeInMinutes && currentTimeInMinutes <= closeTimeInMinutes;
+  }
+  
+  /**
+   * Converrts the time
+   * @param time A string representing time in hmm:mm format (e.g. 14:30)
+   * @returns {number} the total number of minutes since midnight
+   */
+  private convertToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number); // Split the time string into hours and minutes and convert them to numbers
+    return hours * 60 + minutes; // Convert hh:mm to total minutes
   }
 }
 

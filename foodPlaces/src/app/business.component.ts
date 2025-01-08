@@ -31,7 +31,7 @@ export class BusinessComponent {
     editingReviewId: string | null = null;
     userEmail: string | null = null;
 
-    constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder, public authService: AuthService) {}
+    constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder, public authService: AuthService, private webService: WebService) {}
 
     ngOnInit() {
         const businessId = this.route.snapshot.paramMap.get('id');

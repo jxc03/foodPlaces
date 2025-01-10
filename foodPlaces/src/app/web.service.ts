@@ -1,3 +1,8 @@
+/**
+ * For handling API requests related to cities, places, and reviews
+ * Interacts with a backend API to perform CRUD operations
+ */
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,53 +12,68 @@ import { Observable } from 'rxjs';
 })
 
 export class WebService {
-  pageSize: number = 10;
+  // Number of items per page for pagination
+  pageSize: number = 10; // Default page size
+
+  // Backend API base URL
   private apiUrl = 'http://localhost:2000/api';
   
   constructor(private http: HttpClient) {}
 
-  // Get places with pagination and filtering
+  /**
+   * Get a list of places with optional pagination and filtering
+   * @param cityId ID of the city to fetch places from
+   * @param page Page number for pagination
+   * @param filters Filters for places (type, rating, meal preferences, sorting)
+   * @returns the list of places
+   */
   getPlaces(cityId: string, page: number = 1,  filters: any = {}): Observable<any> {
     let url = `${this.apiUrl}/cities/${cityId}/places`; // Backend url to get all places from a city
 
+    // Query parameters
     const params = new URLSearchParams({
-      pn: page.toString(),
-      ps: this.pageSize.toString()
+      pn: page.toString(), // Page number
+      ps: this.pageSize.toString() // Page size
     });
-
+ 
     // Type filters
-    if (filters.type && filters.type !== 'all') {
-      params.append('type', filters.type);
+    if (filters.type && filters.type !== 'all') { // Default to all
+      params.append('type', filters.type); // Filter by type
     }
 
     // Rating filters
     if (filters.min_rating !== undefined && filters.min_rating > 0) {
-      params.append('min_rating', filters.min_rating.toString());
+      params.append('min_rating', filters.min_rating.toString()); // Minimum rating filter
     }
 
     // Meal filters
     if (filters.selectedMeal && filters.selectedMeal !== 'all') {
-      params.append(filters.selectedMeal, 'true');
+      params.append(filters.selectedMeal, 'true'); // Meal preference filter
     }
 
     // Sort
     if (filters.sortBy) {
-      params.append('sort_by', filters.sortBy);
+      params.append('sort_by', filters.sortBy); // Sorting field
       if (filters.sortDirection) {
-        params.append('sort_order', filters.sortDirection);
+        params.append('sort_order', filters.sortDirection); // Sorting direction
       }
     }
 
     // Append query parameters to URL
     url = `${url}?${params.toString()}`;
     console.log(`Making API call to: ${url}`); // To help debug API URL 
-    return this.http.get<any>(url);
+    return this.http.get<any>(url); // Perform HTTP GET request
   }
 
-  // Get a single place
+  /**
+   * Get a list of places with optional pagination and filtering
+   * @param cityId ID of the city containing the place
+   * @param placeId ID of the place to get
+   * @returns place details
+   */
   getPlace(cityId: string, placeId: string): Observable<any> {
-    console.log('Making API request to:', `${this.apiUrl}/cities/${cityId}/places/${placeId}`);
-    return this.http.get<any>(`${this.apiUrl}/cities/${cityId}/places/${placeId}`);
+    console.log('Making API request to:', `${this.apiUrl}/cities/${cityId}/places/${placeId}`); // Endpoint for specific place
+    return this.http.get<any>(`${this.apiUrl}/cities/${cityId}/places/${placeId}`); // Perform HTTP GET request
   }
 
   deletePlace(cityId: string, placeId: string): Observable<any> {
@@ -102,9 +122,6 @@ export class WebService {
       updateData
     );
   }
-  
-
-  
 }
 
 

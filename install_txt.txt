@@ -4,7 +4,10 @@ npm install –g @angular/cli
 Install bootstrap:
 npm install bootstrap jquery --save
 
-Install Auth0 package:
+Install google maps:
+npm install @angular/google-maps --save 
+
+Install auth0 package:
 npm install @auth0/auth0-angular --save 
 
 Install bootstrap icons:
@@ -12,3 +15,6 @@ npm install bootstrap-icons
 
 Install compodoc:
 npm install @compodoc/compodoc --save
+
+Reinstall node modules:
+npm install

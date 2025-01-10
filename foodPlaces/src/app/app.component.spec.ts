@@ -9,10 +9,16 @@ import { BelfastBusinessesComponent } from './cities/belfast/belfastBusinesses.c
 import { LisburnBusinessesComponent } from './cities/lisburn/lisburnBusinesses.component';
 import { DerryBusinessesComponent } from './cities/derryLondonderry/derryBusinesses.component';
 import { NewryBusinessesComponent } from './cities/newry/newryBusinesses.component';
+import { BusinessComponent } from './business.component';
+import { DataService } from './data.service';
 import { WebService } from './web.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { FormBuilder,ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -21,8 +27,8 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        HttpClientModule,
+        RouterTestingModule, // Even though it was depreciated, it fixed null errors or it made it passed with the green
+        HttpClientModule, // Either helped some null errors or to help debug, cant remember
         CommonModule,
         FormsModule,
         AppComponent,
@@ -35,8 +41,7 @@ describe('AppComponent', () => {
         NewryBusinessesComponent
       ],
       providers: [
-        WebService,
-        { provide: AuthService, useValue: { isAuthenticated: () => true } }
+        WebService,       { provide: AuthService, useValue: { isAuthenticated: () => true } }
       ]
     }).compileComponents();
 

@@ -21,6 +21,130 @@
                                 </div>
                             </div>
 
+                            <!-- Business Details Section -->
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span>Business Details</span>
+                                    <button class="btn btn-sm btn-outline-primary" 
+                                            (click)="isDetailsExpanded = !isDetailsExpanded">
+                                        {{ isDetailsExpanded ? 'Show Less' : 'Show More' }}
+                                    </button>
+                                </div>
+                                <div class="card-body" [class.d-none]="!isDetailsExpanded">
+                                    <!-- Business Hours -->
+                                    <div class="mb-4">
+                                        <h4 class="h5 mb-3">Business Hours</h4>
+                                        <div class="row">
+                                            @for (day of ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']; track day) {
+                                                @if (place?.business_hours?.[day]) {
+                                                    <div class="col-12 col-md-4 mb-2">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-capitalize" style="min-width: 100px;">{{ day }}</span>
+                                                            <span class="ms-4">
+                                                                {{ place.business_hours[day].open }} - {{ place.business_hours[day].close }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <!-- Service Options -->
+                                    <div class="mb-4">
+                                        <h4 class="h5 mb-3">Service Options</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Dining</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.service_options?.dining); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Meals</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.service_options?.meals); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Menu Options -->
+                                    <div class="mb-4">
+                                        <h4 class="h5 mb-3">Menu Options</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Food</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.menu_options?.food); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Drinks</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.menu_options?.drinks); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Amenities -->
+                                    <div class="mb-4">
+                                        <h4 class="h5 mb-3">Amenities</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Facilities</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.amenities?.facilities); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 class="h6 mb-2">Accessibility</h5>
+                                                <ul class="list-unstyled">
+                                                    @for (option of getServiceOptions(place?.amenities?.accessibility); track option.key) {
+                                                        <li class="mb-1">
+                                                            <i [class]="option.value ? 'bi bi-check-circle-fill text-success' : 
+                                                               'bi bi-x-circle-fill text-danger'"></i>
+                                                            <span class="ms-2">{{ formatLabel(option.key) }}</span>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Google Maps Section -->
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -40,7 +164,7 @@
                                 </div>
                             </div>
 
-                            <!-- Photo Carousel Section -->
+                            <!-- Photo Section -->
                             <div class="card mb-4">
                                 <div class="card-header">
                                     Photos

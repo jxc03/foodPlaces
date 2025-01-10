@@ -154,16 +154,22 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getCities" >getCities</a>
+                                <a href="#deletePlace" >deletePlace</a>
+                            </li>
+                            <li>
+                                <a href="#deleteReview" >deleteReview</a>
+                            </li>
+                            <li>
+                                <a href="#editReview" >editReview</a>
                             </li>
                             <li>
                                 <a href="#getPlace" >getPlace</a>
                             </li>
                             <li>
-                                <a href="#getPlaces" >getPlaces</a>
+                                <a href="#getPlaceReviews" >getPlaceReviews</a>
                             </li>
                             <li>
-                                <a href="#getReviews" >getReviews</a>
+                                <a href="#getPlaces" >getPlaces</a>
                             </li>
                             <li>
                                 <a href="#postReview" >postReview</a>
@@ -191,7 +197,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/web.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/web.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -238,24 +244,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getCities"></a>
+                    <a name="deletePlace"></a>
                     <span class="name">
-                        <span ><b>getCities</b></span>
-                        <a href="#getCities"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>deletePlace</b></span>
+                        <a href="#deletePlace"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getCities()</code>
+<code>deletePlace(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, placeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="78"
-                                    class="link-to-prism">src/app/web.service.ts:78</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/web.service.ts:79</a></div>
                         </td>
                     </tr>
 
@@ -263,10 +269,246 @@
             <tr>
                 <td class="col-md-4">
 
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>placeId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="io-description">
                             <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                         </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteReview"></a>
+                    <span class="name">
+                        <span ><b>deleteReview</b></span>
+                        <a href="#deleteReview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteReview(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, businessId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, reviewId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/web.service.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>businessId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>reviewId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editReview"></a>
+                    <span class="name">
+                        <span ><b>editReview</b></span>
+                        <a href="#editReview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editReview(businessId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, reviewId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, reviewData: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/web.service.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>businessId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>reviewId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>reviewData</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -291,8 +533,99 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/web.service.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/web.service.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get a list of places with optional pagination and filtering</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>ID of the city containing the place</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>placeId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>ID of the place to get</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>place details</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPlaceReviews"></a>
+                    <span class="name">
+                        <span ><b>getPlaceReviews</b></span>
+                        <a href="#getPlaceReviews"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPlaceReviews(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, placeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/web.service.ts:84</a></div>
                         </td>
                     </tr>
 
@@ -370,14 +703,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="16"
-                                    class="link-to-prism">src/app/web.service.ts:16</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/web.service.ts:30</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Get a list of places with optional pagination and filtering</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -389,6 +724,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -405,6 +741,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>ID of the city to fetch places from</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>page</td>
@@ -420,6 +760,10 @@
                                                     <code>1</code>
                                             </td>
 
+                                            <td>
+                                                    <p>Page number for pagination</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>filters</td>
@@ -435,6 +779,10 @@
                                                     <code>{}</code>
                                             </td>
 
+                                            <td>
+                                                    <p>Filters for places (type, rating, meal preferences, sorting)</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -444,86 +792,8 @@
 
                         </div>
                             <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getReviews"></a>
-                    <span class="name">
-                        <span ><b>getReviews</b></span>
-                        <a href="#getReviews"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getReviews(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, placeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
+                                <p>the list of places</p>
 
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="60"
-                                    class="link-to-prism">src/app/web.service.ts:60</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>cityId</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>placeId</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
                             </div>
                 </td>
             </tr>
@@ -542,15 +812,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>postReview(cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, placeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, review: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+<code>postReview(businessId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, review: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, cityId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">src/app/web.service.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/web.service.ts:97</a></div>
                         </td>
                     </tr>
 
@@ -571,19 +841,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>cityId</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>placeId</td>
+                                                <td>businessId</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -598,6 +856,18 @@
                                                 <td>review</td>
                                             <td>
                                                             <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>cityId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
 
                                             <td>
@@ -651,7 +921,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/web.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/web.service.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -682,7 +952,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/web.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/web.service.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -704,11 +974,120 @@ import { Observable } from &#x27;rxjs&#x27;;
 })
 
 export class WebService {
-  pageSize: number &#x3D; 10;
+  // Number of items per page for pagination
+  pageSize: number &#x3D; 10; // Default page size
+
+  // Backend API base URL
   private apiUrl &#x3D; &#x27;http://localhost:2000/api&#x27;;
   
   constructor(private http: HttpClient) {}
 
+  /**
+   * Get a list of places with optional pagination and filtering
+   * @param cityId ID of the city to fetch places from
+   * @param page Page number for pagination
+   * @param filters Filters for places (type, rating, meal preferences, sorting)
+   * @returns the list of places
+   */
+  getPlaces(cityId: string, page: number &#x3D; 1,  filters: any &#x3D; {}): Observable&lt;any&gt; {
+    let url &#x3D; &#x60;${this.apiUrl}/cities/${cityId}/places&#x60;; // Backend url to get all places from a city
+
+    // Query parameters
+    const params &#x3D; new URLSearchParams({
+      pn: page.toString(), // Page number
+      ps: this.pageSize.toString() // Page size
+    });
+ 
+    // Type filters
+    if (filters.type &amp;&amp; filters.type !&#x3D;&#x3D; &#x27;all&#x27;) { // Default to all
+      params.append(&#x27;type&#x27;, filters.type); // Filter by type
+    }
+
+    // Rating filters
+    if (filters.min_rating !&#x3D;&#x3D; undefined &amp;&amp; filters.min_rating &gt; 0) {
+      params.append(&#x27;min_rating&#x27;, filters.min_rating.toString()); // Minimum rating filter
+    }
+
+    // Meal filters
+    if (filters.selectedMeal &amp;&amp; filters.selectedMeal !&#x3D;&#x3D; &#x27;all&#x27;) {
+      params.append(filters.selectedMeal, &#x27;true&#x27;); // Meal preference filter
+    }
+
+    // Sort
+    if (filters.sortBy) {
+      params.append(&#x27;sort_by&#x27;, filters.sortBy); // Sorting field
+      if (filters.sortDirection) {
+        params.append(&#x27;sort_order&#x27;, filters.sortDirection); // Sorting direction
+      }
+    }
+
+    // Append query parameters to URL
+    url &#x3D; &#x60;${url}?${params.toString()}&#x60;;
+    console.log(&#x60;Making API call to: ${url}&#x60;); // To help debug API URL 
+    return this.http.get&lt;any&gt;(url); // Perform HTTP GET request
+  }
+
+  /**
+   * Get a list of places with optional pagination and filtering
+   * @param cityId ID of the city containing the place
+   * @param placeId ID of the place to get
+   * @returns place details
+   */
+  getPlace(cityId: string, placeId: string): Observable&lt;any&gt; {
+    console.log(&#x27;Making API request to:&#x27;, &#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}&#x60;); // Endpoint for specific place
+    return this.http.get&lt;any&gt;(&#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}&#x60;); // Perform HTTP GET request
+  }
+
+  deletePlace(cityId: string, placeId: string): Observable&lt;any&gt; {
+    return this.http.delete(&#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}&#x60;);
+  }
+
+  // Get the reviews of a place
+  getPlaceReviews(cityId: string, placeId: string): Observable&lt;any&gt; {
+    return this.http.get&lt;any&gt;(&#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}/reviews&#x60;);
+  }
+
+
+  // Delete a review
+  deleteReview(cityId: string, businessId: string, reviewId: string): Observable&lt;any&gt; {
+    return this.http.delete&lt;any&gt;(
+      &#x60;${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews/${reviewId}&#x60;
+      );
+  }
+
+  // Post a new review
+  postReview(businessId: string, review: any, cityId: string): Observable&lt;any&gt; {
+    const reviewData &#x3D; {
+      author_name: review.author_name,
+      content: review.content,
+      rating: Number(review.rating),
+      userEmail: review.userEmail
+    };
+    
+    return this.http.post&lt;any&gt;(
+      &#x60;${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews&#x60;,
+      reviewData
+    );
+  }
+
+  // Edit an existing review
+  editReview(businessId: string, reviewId: string, reviewData: any, cityId: string): Observable&lt;any&gt; {
+    const updateData &#x3D; {
+      author_name: reviewData.author_name,
+      content: reviewData.content,
+      rating: Number(reviewData.rating),
+      userEmail: reviewData.userEmail
+    };
+
+    return this.http.put&lt;any&gt;(
+      &#x60;${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews/${reviewId}&#x60;,
+      updateData
+    );
+  }
+}
+
+
+  /*
   // Get places for any city with filters
   getPlaces(cityId: string, page: number &#x3D; 1, filters: any &#x3D; {}): Observable&lt;any&gt; {
     let url &#x3D; &#x60;${this.apiUrl}/cities/${cityId}/places&#x60;;
@@ -766,46 +1145,9 @@ export class WebService {
     formData.append(&quot;stars&quot;, review.stars);
     
     return this.http.post&lt;any&gt;(
-      &#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}/reviews&#x60;, 
+      &#x60;${this.apiUrl}/api/cities/${cityId}/places/${placeId}/reviews&#x60;, 
       formData
     );
-  }
-
-  // Get all cities (if needed)
-  getCities(): Observable&lt;any&gt; {
-    return this.http.get&lt;any&gt;(&#x60;${this.apiUrl}/cities&#x60;);
-  }
-
-  /*
-  getBusinesses(page: number, cityId: string) {
-    return this.http.get(&#x60;${this.apiUrl}/cities/${cityId}/places&#x60;, {
-      params: {
-        page: page.toString()
-      }
-    });
-  }
-
-  
-  getPlaces(cityId: string) {
-    return this.http.get(&#x60;${this.apiUrl}/cities/${cityId}/places&#x60;);
-  }
-
-  getPlace(cityId: string, placeId: string) {
-    return this.http.get(&#x60;${this.apiUrl}/cities/${cityId}/places/${placeId}&#x60;);
-  }
-  */
-}
-  /*
-  getPlaces(cityName: string, page: number) {
-    return this.http.get&lt;any&gt;(
-        &#x60;${this.baseUrl}/cities/${cityName}/places?pn&#x3D;${page}&amp;ps&#x3D;${this.pageSize}&#x60;
-    );
-}
-
-  getPlace(cityName: string, placeId: string) {
-      return this.http.get&lt;any&gt;(
-          &#x60;${this.baseUrl}/cities/${cityName}/places/${placeId}&#x60;
-      );
   }
   */
 </code></pre>

@@ -1,3 +1,4 @@
+/*
 import { Component } from '@angular/core'; 
 import { RouterOutlet, RouterModule, ActivatedRoute,  } from '@angular/router'; 
 import { DataService } from './data.service'; 
@@ -171,11 +172,11 @@ export class BusinessFailComponent {
         return this.isInvalid('author_name') || this.isInvalid('content') || this.isUntouched();
     }
 
-    /* 
+    
     Placeholder images since my dataset to get the images is just a URL to the google map
     Shouldve downloaded them instead of using an URL link
     Unless there is a possibility to fetch the image using Google Places API through the backend
-    */
+    
     getImageUrl(photo: any, isThumbnail: boolean = false) {
         // Use a default image service like Picsum or a local asset
         if (isThumbnail) {
@@ -219,3 +220,4 @@ export class BusinessFailComponent {
         }
     }
 }
+    */

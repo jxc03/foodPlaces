@@ -1,1 +1,14 @@
+Install angular:
+npm install –g @angular/cli 
+
+Install bootstrap:
+npm install bootstrap jquery --save
+
+Install Auth0 package:
+npm install @auth0/auth0-angular --save 
+
+Install bootstrap icons:
 npm install bootstrap-icons
+
+Install compodoc:
+npm install @compodoc/compodoc --save

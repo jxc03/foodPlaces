@@ -9,16 +9,16 @@ import { AuthService } from '@auth0/auth0-angular';
 import { WebService } from './web.service';
 
 @Component({ 
-    selector: 'business', 
+    selector: 'businessFail', 
     standalone: true, 
     imports: [RouterOutlet, RouterModule, CommonModule, ReactiveFormsModule, GoogleMapsModule], 
     providers: [DataService, WebService], 
-    templateUrl: './business.component.html', 
-    styleUrl: './business.component.css' 
+    templateUrl: './businessFail.component.html', 
+    styleUrl: './businessFail.component.css' 
 }) 
 
-export class BusinessComponent {
-    business_list: any;
+export class BusinessFailComponent {
+    business_list: any[] = [];
     cityId: string = '';
     reviewForm: any;
     showAllReviews: boolean = false;
@@ -30,55 +30,59 @@ export class BusinessComponent {
     map_locations: any[] = [ ]
     editingReviewId: string | null = null;
     userEmail: string | null = null;
+    review_list: any[] = [];
 
     constructor(public dataService: DataService, private route: ActivatedRoute,  private formBuilder: FormBuilder, public authService: AuthService, private webService: WebService) {}
 
     ngOnInit() {
         const businessId = this.route.snapshot.paramMap.get('id');
-        console.log('Looking for business with ID:', businessId);
+        this.cityId = this.route.snapshot.paramMap.get('cityId') || '';
 
-        if (businessId) {
-            this.business_list = this.dataService.getBusiness(businessId);
-            console.log('Found business data:', this.business_list);
+        console.log('BusinessComponent: Initialising with businessId:', businessId);
+        console.log('BusinessComponent: City ID:', this.cityId);
+        
+        if (businessId && this.cityId) {
+            // Get business details
+            this.webService.getPlace(this.cityId, businessId)
+                .subscribe((response: any) => {
+                    this.business_list = [response];
+                    
+                    // Initialize maps if coordinates exist
+                    if (response?.places?.[0]?.location?.coordinates) {
+                        const coordinates = response.places[0].location.coordinates;
+                        this.business_lat = coordinates.latitude;
+                        this.business_lng = coordinates.longitude;
+                        
+                        this.map_options = {
+                            mapId: "DEMO_MAP_ID",
+                            center: { 
+                                lat: this.business_lat,
+                                lng: this.business_lng 
+                            },
+                            zoom: 15,
+                            mapTypeId: 'roadmap'
+                        };
 
-            // Initialize Google Maps with business location
-            if (this.business_list?.[0]?.places?.[0]?.location?.coordinates) {
-                const coordinates = this.business_list[0].places[0].location.coordinates;
-                this.business_lat = coordinates.latitude;
-                this.business_lng = coordinates.longitude;
-                
-                console.log('Business coordinates:', this.business_lat, this.business_lng);
+                        this.map_locations = [{
+                            lat: this.business_lat,
+                            lng: this.business_lng
+                        }];
+                    }
 
-                // Set map options
-                this.map_options = {
-                    mapId: "DEMO_MAP_ID",
-                    center: { 
-                        lat: this.business_lat,
-                        lng: this.business_lng 
-                    },
-                    zoom: 15,
-                    mapTypeId: 'roadmap'
-                };
+                    // Initialize photos
+                    if (response?.places?.[0]?.media?.photos) {
+                        this.photosToDisplay = response.places[0].media.photos;
+                    }
+                });
 
-                // Add business location marker
-                this.map_locations = [{
-                    lat: this.business_lat,
-                    lng: this.business_lng
-                }];
-            }
-
-            // Initialize photos array if available
-            if (this.business_list?.[0]?.places?.[0]?.media?.photos) {
-                this.photosToDisplay = this.business_list[0].places[0].media.photos;
-                console.log('Photos loaded:', this.photosToDisplay.length);
-            }
-
-            // Log reviews
-            if (this.business_list && this.business_list[0]?.ratings?.recent_reviews) {
-                console.log('Reviews:', this.business_list[0].ratings.recent_reviews);
-            }
+            // Get business reviews separately
+            this.webService.getPlaceReviews(this.cityId, businessId)
+                .subscribe((response: any) => {
+                    this.review_list = response;
+                });
         }
 
+        // Initialize form and auth user subscription
         this.reviewForm = this.formBuilder.group({
             author_name: ['', Validators.required],
             content: ['', Validators.required],
@@ -86,12 +90,9 @@ export class BusinessComponent {
         });
 
         this.authService.user$.subscribe(user => {
-            console.log('Logged-in user:', user);
             this.userEmail = user?.email || null;
-            console.log('Auth0 user email:', this.userEmail);
         });
     }
-
 
     logUserReview(userName: string, reviewAuthor: string) {
         console.log('Comparing:', userName, 'with', reviewAuthor);
@@ -157,6 +158,7 @@ export class BusinessComponent {
         }
     }
 
+
     isInvalid(control: any) {
         return this.reviewForm.controls[control].invalid && this.reviewForm.controls[control].touched;
     }
@@ -168,7 +170,7 @@ export class BusinessComponent {
     isIncomplete() {
         return this.isInvalid('author_name') || this.isInvalid('content') || this.isUntouched();
     }
-   
+
     /* 
     Placeholder images since my dataset to get the images is just a URL to the google map
     Shouldve downloaded them instead of using an URL link

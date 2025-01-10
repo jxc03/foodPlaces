@@ -25,4 +25,5 @@ export class AppComponent {
   ngOnInit() {
     console.log(jsonData);
   }
+  currentCity: string = '';
 }

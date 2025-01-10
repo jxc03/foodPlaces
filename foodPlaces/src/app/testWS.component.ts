@@ -31,7 +31,7 @@ export class TestWSComponent {
     }
   
     private testGetBusinessById() {
-      const testId = '1'; // Replace with valid business ID for testing
+      const testId = '67267637aeb441ea7afa2062'; // Replace with valid business ID for testing
       this.testResults.push(`Testing getBusiness with ID ${testId}...`);
   
       try {
@@ -58,7 +58,7 @@ export class TestWSComponent {
     }
   
     private testPostReview() {
-      const businessId = '1'; // Replace with valid business ID
+      const businessId = '67267637aeb441ea7afa2062'; // Replace with valid business ID
       const mockReview = {
         author_name: 'Test User',
         content: 'Amazing experience!',

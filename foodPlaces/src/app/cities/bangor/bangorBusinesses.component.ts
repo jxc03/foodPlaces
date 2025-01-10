@@ -8,6 +8,7 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WebService } from '../../web.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 /**
  * Component that handles the display and management of Bangor business listings
@@ -64,7 +65,7 @@ export class BangorBusinessesComponent {
    * @param dataService for handling imported JSON data
    * @param webService for making API calls (connecting to backend)
    */
-  constructor(/*public dataService: DataService,*/ private webService: WebService) {}
+  constructor(/*public dataService: DataService,*/ private webService: WebService, public authService: AuthService) {}
 
   /**
    * Runs on component
@@ -239,6 +240,34 @@ export class BangorBusinessesComponent {
       this.page++; // Increment page number
       sessionStorage['page'] = this.page; // Save new page to session storage
       this.fetchPlaces();
+    }
+  }
+
+  /**
+   * Deletes a place given with user confirmation
+   * 
+   * @param {string} placeId ID of the place to be deleted
+   * @param {Event} event triggered by the user's action
+   */
+  deletePlace(placeId: string, event: Event) {
+    event.stopPropagation(); // To only delete the place, help stop from deleting other related things
+      
+    const cityId = this.cityId; // Store the city ID for the API request
+
+    // Confirm with the user before proceeding with the deletion  
+    if (confirm('Are you sure you want to delete this place?')) { // If user clicks on button
+      // Call the web service to delete the place
+      this.webService.deletePlace(cityId, placeId).subscribe({ // Takes cityId and placeId as its parameters
+        // Handle the successful deletion
+        next: () => {
+          this.filteredPlaces = this.filteredPlaces.filter(place => place._id !== placeId);
+          console.log('Success: Place deleted successfully');
+        },
+        // Handle any errors that occurs during deletion 
+        error: (error: any) => { 
+          console.error('Error deleting place:', error);
+        }
+      });
     }
   }
 

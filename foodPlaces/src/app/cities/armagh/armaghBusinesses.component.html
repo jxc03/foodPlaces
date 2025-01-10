@@ -60,8 +60,8 @@
             @for (place of filteredPlaces; track place._id) {
                 <div class="col-md-6">
                     <div class="card h-100 hover:shadow-lg transition-shadow"
-                         style="cursor: pointer" 
-                         [routerLink]="['/armaghBusinesses', place._id]">
+                        style="cursor: pointer" 
+                        [routerLink]="['/armaghBusinesses', place._id]">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div>
@@ -74,7 +74,7 @@
                                     <span class="text-muted small">({{place.ratings?.review_count}})</span>
                                 </div>
                             </div>
-
+                            
                             <!-- Types badges -->
                             <div class="mb-3">
                                 @for (type of place.info?.type; track type) {
@@ -112,6 +112,19 @@
                                     <i class="bi bi-clock-fill" [ngClass]="isCurrentlyOpen(place.business_hours) ? 'text-primary' : 'text-danger'"></i>
                                     Open today: {{place.business_hours?.[getCurrentDay()]?.open}} - {{place.business_hours?.[getCurrentDay()]?.close}}
                                 </span>
+
+                                <!-- Delete function/button -->
+                                <div class="d-flex gap-2" (click)="$event.stopPropagation()">
+                                    <ng-container *ngIf="authService.isAuthenticated$ | async">
+                                        <button 
+                                            class="btn btn-sm btn-danger" 
+                                            (click)="deletePlace(place._id, $event)">
+                                            Delete
+                                        </button>
+                                    </ng-container>
+                                </div>
+                                
+                                <!-- View details function/button -->
                                 <button class="btn btn-sm btn-outline-primary">View Details</button>
                             </div>
                         </div>

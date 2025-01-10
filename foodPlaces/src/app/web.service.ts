@@ -12,6 +12,103 @@ export class WebService {
   
   constructor(private http: HttpClient) {}
 
+  // Get places with pagination and filtering
+  getPlaces(cityId: string, page: number = 1,  filters: any = {}): Observable<any> {
+    let url = `${this.apiUrl}/cities/${cityId}/places`; // Backend url to get all places from a city
+
+    const params = new URLSearchParams({
+      pn: page.toString(),
+      ps: this.pageSize.toString()
+    });
+
+    // Type filters
+    if (filters.type && filters.type !== 'all') {
+      params.append('type', filters.type);
+    }
+
+    // Rating filters
+    if (filters.min_rating !== undefined && filters.min_rating > 0) {
+      params.append('min_rating', filters.min_rating.toString());
+    }
+
+    // Meal filters
+    if (filters.selectedMeal && filters.selectedMeal !== 'all') {
+      params.append(filters.selectedMeal, 'true');
+    }
+
+    // Sort
+    if (filters.sortBy) {
+      params.append('sort_by', filters.sortBy);
+      if (filters.sortDirection) {
+        params.append('sort_order', filters.sortDirection);
+      }
+    }
+
+    // Append query parameters to URL
+    url = `${url}?${params.toString()}`;
+    console.log(`Making API call to: ${url}`); // To help debug API URL 
+    return this.http.get<any>(url);
+  }
+
+  // Get a single place
+  getPlace(cityId: string, placeId: string): Observable<any> {
+    console.log('Making API request to:', `${this.apiUrl}/cities/${cityId}/places/${placeId}`);
+    return this.http.get<any>(`${this.apiUrl}/cities/${cityId}/places/${placeId}`);
+  }
+
+  deletePlace(cityId: string, placeId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/cities/${cityId}/places/${placeId}`);
+  }
+
+  // Get the reviews of a place
+  getPlaceReviews(cityId: string, placeId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/cities/${cityId}/places/${placeId}/reviews`);
+  }
+
+
+  // Delete a review
+  deleteReview(cityId: string, businessId: string, reviewId: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews/${reviewId}`
+      );
+  }
+
+  // Post a new review
+  postReview(businessId: string, review: any, cityId: string): Observable<any> {
+    const reviewData = {
+      author_name: review.author_name,
+      content: review.content,
+      rating: Number(review.rating),
+      userEmail: review.userEmail
+    };
+    
+    return this.http.post<any>(
+      `${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews`,
+      reviewData
+    );
+  }
+
+  // Edit an existing review
+  editReview(businessId: string, reviewId: string, reviewData: any, cityId: string): Observable<any> {
+    const updateData = {
+      author_name: reviewData.author_name,
+      content: reviewData.content,
+      rating: Number(reviewData.rating),
+      userEmail: reviewData.userEmail
+    };
+
+    return this.http.put<any>(
+      `${this.apiUrl}/cities/${cityId}/places/${businessId}/reviews/${reviewId}`,
+      updateData
+    );
+  }
+  
+
+  
+}
+
+
+  /*
   // Get places for any city with filters
   getPlaces(cityId: string, page: number = 1, filters: any = {}): Observable<any> {
     let url = `${this.apiUrl}/cities/${cityId}/places`;
@@ -69,45 +166,8 @@ export class WebService {
     formData.append("stars", review.stars);
     
     return this.http.post<any>(
-      `${this.apiUrl}/cities/${cityId}/places/${placeId}/reviews`, 
+      `${this.apiUrl}/api/cities/${cityId}/places/${placeId}/reviews`, 
       formData
     );
-  }
-
-  // Get all cities (if needed)
-  getCities(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/cities`);
-  }
-
-  /*
-  getBusinesses(page: number, cityId: string) {
-    return this.http.get(`${this.apiUrl}/cities/${cityId}/places`, {
-      params: {
-        page: page.toString()
-      }
-    });
-  }
-
-  
-  getPlaces(cityId: string) {
-    return this.http.get(`${this.apiUrl}/cities/${cityId}/places`);
-  }
-
-  getPlace(cityId: string, placeId: string) {
-    return this.http.get(`${this.apiUrl}/cities/${cityId}/places/${placeId}`);
-  }
-  */
-}
-  /*
-  getPlaces(cityName: string, page: number) {
-    return this.http.get<any>(
-        `${this.baseUrl}/cities/${cityName}/places?pn=${page}&ps=${this.pageSize}`
-    );
-}
-
-  getPlace(cityName: string, placeId: string) {
-      return this.http.get<any>(
-          `${this.baseUrl}/cities/${cityName}/places/${placeId}`
-      );
   }
   */

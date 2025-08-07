@@ -3,5 +3,5 @@
 ![gif](gif.gif)
 
 <p float="left">
-  <img src="gif.gif" alt="Demo GIF" width="250" />
+  <img src="gif.gif" alt="Demo GIF" width="800" />
 </p>
